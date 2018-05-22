@@ -16,13 +16,13 @@ if dirName ~= 0
             im = double(dicomread(fullfile(path, files(ii).name)));
             handles.MyData.T2(CntT2).Image = im/max(im(:));
             handles.MyData.T2(CntT2).SliceLocation = iminfo.SliceLocation;
-            handles.MyData.T2(CntT2).SliceLocation = iminfo.EchoTime;
+            handles.MyData.T2(CntT2).EchoTime = iminfo.EchoTime;
             CntT2 = CntT2 + 1;
         else
             im = double(dicomread(fullfile(path, files(ii).name)));
             handles.MyData.Loc(CntLoc).Image = im/max(im(:));
             handles.MyData.Loc(CntLoc).SliceLocation = iminfo.SliceLocation;
-            handles.MyData.Loc(CntLoc).SliceLocation = iminfo.EchoTime;
+            handles.MyData.Loc(CntLoc).EchoTime = iminfo.EchoTime;
             CntLoc = CntLoc + 1;
         end        
     end
