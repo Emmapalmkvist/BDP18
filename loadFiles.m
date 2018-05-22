@@ -35,14 +35,5 @@ if dirName ~= 0
     end
 end
 
-
-%[Q] = handles.MyData.T2(:).SliceLocation;
-
-[test indexInA indexInC] = unique([handles.MyData.T2.SliceLocation]);
-
-handles.MyData.Layer = length(test);
-
-[handles.MyData.T2(:).Layer] = indexInC(:);
-
 end
 
