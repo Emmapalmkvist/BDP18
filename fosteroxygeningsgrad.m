@@ -219,6 +219,12 @@ set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/((handles.MyData.NumbOfLayers)-1), 2/((handles.MyData.NumbOfLayers)-1)]);
 guidata(hObject, handles);
 
+% %Initialiserer sliderROIPicture
+% set(handles.SliderROIPicture, 'Value', 1);
+% set(handles.SliderROIPicture, 'Min', 1);
+% set(handles.SliderROIPicture, 'Max', size(handles.MyData.T2.LayerNo)); 
+% set(handles.SliderROIPicture, 'SliderStep', [1/(handles.MyData.LayerNo-1), 2/(handles.MyData.LayerNo-1)]);
+
 
 % Position af slideren = ergo det billede vi vil have
 ImPos = round(get(handles.SliderLayer, 'Value'));
@@ -229,7 +235,10 @@ antalRaekker = handles.MyData.Layers(ImPos)/4;
 montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
 
 
-
+% ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
+% set(handles.txtSliderROIPicture, 'String', sprintf('%d/5d', ImPosROI, handles.MyData.LayerNo)); 
+% axes(handles.axSliderROIPicture)
+% imshow(handles.MyData.LayerNo(ImPosROI)); 
 
 
 % --- Executes on button press in btnDrawROI.
