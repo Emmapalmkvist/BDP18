@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 23-May-2018 17:23:23
+% Last Modified by GUIDE v2.5 23-May-2018 19:45:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -241,3 +241,30 @@ function tbDrawROI_OnCallback(hObject, eventdata, handles)
 CreateROIs(handles);
 guidata(hObject, handles);
 
+
+
+% --------------------------------------------------------------------
+function tbOpen_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbOpen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+handles = loadFiles(handles);
+guidata(hObject, handles);
+handles = sortLayers(handles);
+guidata(hObject, handles);
+
+
+initialisererSliders(handles);
+guidata(hObject, handles);
+displayLayers(handles);
+guidata(hObject, handles);
+
+displayROIPicture(handles);
+guidata(hObject, handles);
+
+
+% --------------------------------------------------------------------
+function tbQuestion_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbQuestion (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
