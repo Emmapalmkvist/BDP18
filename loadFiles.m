@@ -15,7 +15,9 @@ if dirName ~= 0
         
     % Counters for number of T2-images and number of Localizer images
     CntT2 = 1;
-    CntLoc = 1;
+    CntLoc = 1
+    numberoffiles = length(files);
+    wb = waitbar(0,'Henter DICOM-billeder');
     
     for ii = 1:length(files)
         currentFile = fullfile(dirName, files(ii).name);
@@ -31,9 +33,11 @@ if dirName ~= 0
             handles.MyData.Loc(CntLoc).SliceLocation = iminfo.SliceLocation;
             handles.MyData.Loc(CntLoc).EchoTime = iminfo.EchoTime;
             CntLoc = CntLoc + 1;
-        end        
+        end 
+        waitbar(ii/numberoffiles,wb);
     end
-end
-
+    if exist('wb','var')
+    close(wb);
+    end
 end
 
