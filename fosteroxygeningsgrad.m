@@ -220,20 +220,20 @@ set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/((handles.MyData.NumbOfLayers)-1), 2/((handles.MyData.NumbOfLayers)-1)]);
 guidata(hObject, handles);
 
- %Initialiserer sliderROIPicture
- set(handles.SliderROIPicture, 'Value', 1);
- set(handles.SliderROIPicture, 'Min', 1);
- set(handles.SliderROIPicture, 'Max', size(handles.MyData.Layers)); 
- set(handles.SliderROIPicture, 'SliderStep', [1/(handles.MyData.LayerNo-1), 2/(handles.MyData.LayerNo-1)]);
-
-
+ 
 % Position af slideren = ergo det billede vi vil have
 ImPos = round(get(handles.SliderLayer, 'Value'));
 set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,handles.MyData.NumbOfLayers));
 
-axes(handles.axLayers)
-antalRaekker = handles.MyData.Layers(ImPos)/4;
-montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
+%axes(handles.axLayers)
+%antalRaekker = handles.MyData.Layers(ImPos)/4;
+%montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
+
+%Initialiserer sliderROIPicture
+ set(handles.SliderROIPicture, 'Value', 1);
+ set(handles.SliderROIPicture, 'Min', 1);
+ set(handles.SliderROIPicture, 'Max', length(handles.MyData.Layers(ImPos))); 
+ set(handles.SliderROIPicture, 'SliderStep', [1/(handles.MyData.Layers(ImPos)), 2/(handles.MyData.Layers(ImPos))]);
 
 
 % ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
