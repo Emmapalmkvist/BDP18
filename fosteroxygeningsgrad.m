@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 22-May-2018 17:12:51
+% Last Modified by GUIDE v2.5 23-May-2018 13:44:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -103,14 +103,7 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-% Position af slideren = ergo det billede vi vil have
-ImPos = ceil(get(handles.SliderLayer, 'Value'));
-set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,length([handles.MyData.Layers])));
 
-axes(handles.axLayers)
-clear axes;
-antalRaekker = handles.MyData.Layers(ImPos)/4;
-montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
 
 % --- Executes during object creation, after setting all properties.
 function SliderLayer_CreateFcn(hObject, eventdata, handles)
@@ -198,53 +191,6 @@ function btnLoadImages_Callback(hObject, eventdata, handles)
 % hObject    handle to btnLoadImages (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = loadFiles(handles);
-guidata(hObject, handles);
-handles = sortLayers(handles);
-guidata(hObject, handles);
-
-antalSnit = handles.MyData.NumbOfLayers; 
-step = antalSnit-1;
-
-set(handles.SliderLayer, 'Value', 1);
-set(handles.SliderLayer, 'Min', 1);
-set(handles.SliderLayer, 'Max', antalSnit);
-set(handles.SliderLayer, 'SliderStep', [1/step, 2/step]);
-guidata(hObject, handles);
-
-%set(handles.txtSliderLayer, 'String', sprintf('1/%d',antalSnit));
-
-% Position af slideren = ergo det billede vi vil have
-ImPos = round(get(handles.SliderLayer, 'Value'));
-set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,antalSnit));
-
-axes(handles.axLayers)
-antalRaekker = handles.MyData.Layers(ImPos)/4;
-montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
-
-% for i = 1:antalSnit
-%    antalBillederIsnit = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==i));
-%    %length(handles.MyData.T2([handles.MyData.T2.LayerNo]==ii))
-%    [sze, ~] = size([handles.MyData.T2.Image]);
-%    stack = zeros(sze, sze,1,antalBillederIsnit);
-%    
-%    for ii = 1:antalBillederIsnit
-%        im = double(handles.MyData.T2(ii).Image);
-%        im = im/max(im(:));
-%        stack(:,:,1,ii) = im;
-%     
-%    end 
-%  
-% end 
-% axes(handles.axLayers);
-% % Der er altid 4 billeder pr. række
-% antalRaekker = antalBillederIsnit/4;
-% montage(stack, 'Size', [antalRaekker,4])
-% 
-% axes(handles.axLayers);
-% test = handles.MyData.T2(1).Image;
-% imagesc(handles.MyData.T2(1).Image); 
-
 
 
 % --- Executes on button press in btnDrawROI.
@@ -266,3 +212,11 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function tbDrawROI_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbDrawROI (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+CreateROIs( hObject ) 
