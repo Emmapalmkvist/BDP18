@@ -7,6 +7,5 @@ function handles = sortLayers(handles)
 handles.MyData.Layer = length(test);
 layer = num2cell(layer);
 [handles.MyData.T2.Layer] = deal(layer{:});
-%handles.MyData.T2(:).Layer = {'Layer', indexInC(:)};
 end
 
