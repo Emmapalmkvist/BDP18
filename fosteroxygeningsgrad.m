@@ -103,6 +103,7 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+% Position af slideren = ergo det billede vi vil have
 
 
 % --- Executes during object creation, after setting all properties.
@@ -191,32 +192,3 @@ function btnLoadImages_Callback(hObject, eventdata, handles)
 % hObject    handle to btnLoadImages (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in btnDrawROI.
-function btnDrawROI_Callback(hObject, eventdata, handles)
-% hObject    handle to btnDrawROI (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in btnSave.
-function btnSave_Callback(hObject, eventdata, handles)
-% hObject    handle to btnSave (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in pushbutton4.
-function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --------------------------------------------------------------------
-function tbDrawROI_ClickedCallback(hObject, eventdata, handles)
-% hObject    handle to tbDrawROI (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-CreateROIs( hObject ) 
