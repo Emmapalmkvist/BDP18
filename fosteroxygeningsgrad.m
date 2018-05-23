@@ -122,16 +122,6 @@ ImPos = ceil(get(handles.SliderLayer, 'Value'));
 set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,length([handles.MyData.Layers])));
 
 
-%Fortæller hvor snit-billederne skal vises. 
-axes(handles.axLayers)
-%Der er altid 4 billeder pr. række i montage. 
-antalRaekker = length(handles.MyData.Layers(ImPos).Images)/4;
-%Montage vise alle snitbillederne i et stort billede. 
-%Strack(ImPos).Strack - fortæller hvilken strack der skal bruges ud fra
-%snitposisionen, og så finder den alle billedern i det snit. 
-montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
-
-
 % Position af slideren = ergo det billede vi vil have
 %ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
 set(handles.SliderROIPicture, 'Value', 1);
