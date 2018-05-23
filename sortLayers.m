@@ -2,22 +2,20 @@ function handles = sortLayers(handles)
 %SORTLAYERS Sorts the T2* images into layers
 %   Detailed explanation goes here
 
-[uniValues, ~, layer] = unique([handles.MyData.T2.SliceLocation]);
+[uniqueValues, ~, layer] = unique([handles.MyData.T2.SliceLocation]);
 
-handles.MyData.NumbOfLayers = length(uniValues);
+handles.MyData.NumbOfLayers = length(uniqueValues);
 layer = num2cell(layer);
 [handles.MyData.T2.LayerNo] = deal(layer{:});
 
-for i = 1:length(uniValues)
-   antalBillederIsnit = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==i));
-   handles.MyData.Layers(i) = antalBillederIsnit;
-   %length(handles.MyData.T2([handles.MyData.T2.LayerNo]==ii)) [sze, ~] =
-   %size([handles.MyData.T2.Image]); 
-   %stack = zeros(sze,sze,1,antalBillederIsnit);
+for i = 1:length(uniqueValues)
+   handles.MyData.Layers(i).Images = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
+   numbOfPics = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==i));
    
-   imag = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
-   for ii = 1:antalBillederIsnit
-       im = double(imag(ii).Image);
+   %imag = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
+   for ii = 1:numbOfPics
+       
+       im = double(handles.MyData.Layers(i).Images(ii).Image);
        %im = double(handles.MyData.T2(ii).Image); 
        im = im/max(im(:));
        handles.MyData.Stacks(i).Stack(:,:,1,ii) = im;
