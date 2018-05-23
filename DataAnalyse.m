@@ -1,6 +1,6 @@
 %dirName = uigetdir('PC', 'Vælg et bibliotek med Dicom filer');
 %if dirName ~= 0
-path = fullfile('E:\MATLAB\ExamDICOMdata', 'P7');
+path = fullfile('C:\Users\IdaSofie\Desktop\Uni\6 semester\Biomedical Dataprocessing\Eksamen i BDP\ExamDICOMdata', 'P7');
 files = dir(fullfile(path, '*.dcm'));
 info = dicominfo(fullfile(path, files(1).name));
 
@@ -22,7 +22,8 @@ for ii = 1:length(files)
     location{ii} = iminfo.SliceLocation;
     angle{ii} = iminfo.FlipAngle;
     
-    %imshow(im);
+    figure();
+    imshow(im);
     %
     %if(length(im) == 512)
     %stack512(:, :, 1, ii) = im;
