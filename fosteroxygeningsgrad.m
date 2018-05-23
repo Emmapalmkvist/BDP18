@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 23-May-2018 13:44:36
+% Last Modified by GUIDE v2.5 23-May-2018 16:02:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -261,3 +261,14 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function tbCreateROI_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbCreateROI (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+axes(handles.axLayers); 
+ROI = impoly();
+pos = getPosition(ROI); 
+
