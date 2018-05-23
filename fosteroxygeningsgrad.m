@@ -191,6 +191,15 @@ function btnLoadImages_Callback(hObject, eventdata, handles)
 % hObject    handle to btnLoadImages (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+handles = loadFiles(handles);
+guidata(hObject, handles);
+Snit = handles.MyData.Layer; 
+
+
+axes(handles.axLayers);
+test = handles.MyData.T2(1).Image;
+imagesc(handles.MyData.T2(1).Image); 
+
 
 
 % --- Executes on button press in btnDrawROI.
