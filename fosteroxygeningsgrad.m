@@ -116,7 +116,7 @@ set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,length([handles.MyDa
 axes(handles.axLayers)
 clear axes;
 %Der er altid 4 billeder pr. række i montage. 
-antalRaekker = handles.MyData.Layers(ImPos)/4;
+antalRaekker = length(handles.MyData.Layers(ImPos).Images)/4;
 %Montage vise alle snitbillederne i et stort billede. 
 %Strack(ImPos).Strack - fortæller hvilken strack der skal bruges ud fra
 %snitposisionen, og så finder den alle billedern i det snit. 
@@ -220,7 +220,13 @@ set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/((handles.MyData.NumbOfLayers)-1), 2/((handles.MyData.NumbOfLayers)-1)]);
 guidata(hObject, handles);
 
- 
+ %Initialiserer sliderROIPicture
+%  set(handles.SliderROIPicture, 'Value', 1);
+%  set(handles.SliderROIPicture, 'Min', 1);
+%  set(handles.SliderROIPicture, 'Max', size(handles.MyData.Layers)); 
+%  set(handles.SliderROIPicture, 'SliderStep', [1/(handles.MyData.LayerNo-1), 2/(handles.MyData.LayerNo-1)]);
+
+
 % Position af slideren = ergo det billede vi vil have
 ImPos = round(get(handles.SliderLayer, 'Value'));
 set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,handles.MyData.NumbOfLayers));
