@@ -82,17 +82,7 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-%Henter slider værdien og runder værdien op til nærmeste heltal. 
-ImPos = ceil(get(handles.SliderLayer, 'Value'));
-
-ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
- set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', ImPosROI, length(handles.MyData.Layers(ImPos).Images))); 
- axes(handles.axDrawROI)
- currentIm = double(handles.MyData.Layers(ImPos).Images(ImPosROI).Image);
- currentIm = currentIm/max(currentIm(:));
- imshow(currentIm);
- %imshow(handles.MyData.Layers(ImPos).Images(ImPosROI).Image); 
-
+ displayROIPicture(handles);
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -115,21 +105,9 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-%Henter slider værdien og runder værdien op til nærmeste heltal. 
-ImPos = ceil(get(handles.SliderLayer, 'Value'));
-%Sætter teksten under slider, der fortæller hvilket snit der bliver vist ud
-%af x-antal i alt. 
-set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,length([handles.MyData.Layers])));
+displayLayers(handles);
 
 
-% Position af slideren = ergo det billede vi vil have
-%ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
-set(handles.SliderROIPicture, 'Value', 1);
- set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', 1, length(handles.MyData.Layers(ImPos).Images))); 
- axes(handles.axDrawROI)
- currentIm = double(handles.MyData.Layers(ImPos).Images(1).Image);
- currentIm = currentIm/max(currentIm(:));
- imshow(currentIm);
 
 % --- Executes during object creation, after setting all properties.
 function SliderLayer_CreateFcn(hObject, eventdata, handles)
@@ -221,50 +199,14 @@ guidata(hObject, handles);
 handles = sortLayers(handles);
 guidata(hObject, handles);
 
-%Initialiserer sliderLayer 
-set(handles.SliderLayer, 'Value', 1);
-set(handles.SliderLayer, 'Min', 1);
-set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
-set(handles.SliderLayer, 'SliderStep', [1/((handles.MyData.NumbOfLayers)-1), 2/((handles.MyData.NumbOfLayers)-1)]);
+
+initialisererSliders(handles);
+guidata(hObject, handles);
+displayLayers(handles);
 guidata(hObject, handles);
 
-%Henter slider værdien og runder værdien op til nærmeste heltal. 
-ImPos = ceil(get(handles.SliderLayer, 'Value'));
-%Sætter teksten under slider, der fortæller hvilket snit der bliver vist ud
-%af x-antal i alt. 
-set(handles.txtSliderLayer, 'String', sprintf('%d/%d',ImPos,length([handles.MyData.Layers])));
-
-%Fortæller hvor snit-billederne skal vises. 
-axes(handles.axLayers)
-clear axes;
-%Der er altid 4 billeder pr. række i montage. 
-antalRaekker = length(handles.MyData.Layers(ImPos).Images)/4;
-%Montage vise alle snitbillederne i et stort billede. 
-%Strack(ImPos).Strack - fortæller hvilken strack der skal bruges ud fra
-%snitposisionen, og så finder den alle billedern i det snit. 
-montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
-
-
- %Initialiserer sliderROIPicture
-%  set(handles.SliderROIPicture, 'Value', 1);
-%  set(handles.SliderROIPicture, 'Min', 1);
-%  set(handles.SliderROIPicture, 'Max', size(handles.MyData.Layers)); 
-%  set(handles.SliderROIPicture, 'SliderStep', [1/(handles.MyData.LayerNo-1), 2/(handles.MyData.LayerNo-1)]);
-
-%Initialiserer sliderROIPicture
- set(handles.SliderROIPicture, 'Value', 1);
- set(handles.SliderROIPicture, 'Min', 1);
- set(handles.SliderROIPicture, 'Max', length(handles.MyData.Layers(ImPos).Images)); 
- set(handles.SliderROIPicture, 'SliderStep', [1/length(handles.MyData.Layers(ImPos).Images), 2/length(handles.MyData.Layers(ImPos).Images)]);
-
-
- ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
- set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', ImPosROI, length(handles.MyData.Layers(ImPos).Images))); 
- axes(handles.axDrawROI)
- currentIm = double(handles.MyData.Layers(ImPos).Images(ImPosROI).Image);
- currentIm = currentIm./max(currentIm(:));
- imshow(currentIm);
- %imagesc(handles.MyData.Layers(ImPos).Images(ImPosROI).Image); 
+displayROIPicture(handles);
+guidata(hObject, handles);
 
 
 % --- Executes on button press in btnDrawROI.
