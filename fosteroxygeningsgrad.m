@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 23-May-2018 19:45:47
+% Last Modified by GUIDE v2.5 24-May-2018 08:36:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -120,19 +120,19 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-% --- Executes on selection change in listbox1.
-function listbox1_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
+% --- Executes on selection change in lbT2Ana.
+function lbT2Ana_Callback(hObject, eventdata, handles)
+% hObject    handle to lbT2Ana (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox1
+% Hints: contents = cellstr(get(hObject,'String')) returns lbT2Ana contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from lbT2Ana
 
 
 % --- Executes during object creation, after setting all properties.
-function listbox1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox1 (see GCBO)
+function lbT2Ana_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lbT2Ana (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
