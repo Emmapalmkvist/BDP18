@@ -238,7 +238,7 @@ function tbDrawROI_OnCallback(hObject, eventdata, handles)
 % hObject    handle to tbDrawROI (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-CreateROIs(handles);
+handles = CreateROIs(handles);
 guidata(hObject, handles);
 
 
