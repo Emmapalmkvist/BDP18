@@ -11,6 +11,7 @@ location = cell(1,length(files));
 spacing= cell(1,length(files));
 angle = cell(1, length(files));
 
+
 for ii = 1:length(files)
     iminfo = dicominfo(fullfile(path, files(ii).name));
     im = double(dicomread(fullfile(path, files(ii).name)));
@@ -22,8 +23,6 @@ for ii = 1:length(files)
     location{ii} = iminfo.SliceLocation;
     angle{ii} = iminfo.FlipAngle;
     
-    figure();
-    imshow(im);
     %
     %if(length(im) == 512)
     %stack512(:, :, 1, ii) = im;
