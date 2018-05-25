@@ -9,13 +9,61 @@ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
     return;
 end    
 
-layer = get(handles.SliderLayer, 'Value');
+ImPos = get(handles.SliderLayer, 'Value');
+mValue = get(handles.SliderROIPicture, 'Max');
 
-%if 	nargin == 1
-ROIS = impoly();
-handles.MyData.Layers(layer).ROIS = ROIS;               % Ny ROI
-handles.MyData.Layers.ROIS.Deletable = 0; % Funktionen Deletable slåes fra.
-handles.MyData.Layers(layer).ROIS.pos = getPosition(handles.MyData.Layer(layer).ROIS);                     % Henter positionen (x,y,w,h) på den valgte ROI.
+% Tegn ROI
+ROI = impoly;
+ROI.Deletable = 0; 
+pos = getPosition(ROI);
 
-end
+mean = getMeanROI(ROI);
+
+% Lav maske ud fra ROI
+mask = ROI.createMask;
+
+if isfield(handles.MyData.Layers, 'ROIS')
+
+    if ~isempty(handles.MyData.Layers(ImPos).ROIS)
+        idx = str2num(handles.MyData.Layers(ImPos).ROIS.ROI(end).ROIID(end));
+    else
+        idx = 0; 
+    end
+    
+        id = ['ROI' num2str(idx+1)];                                      % id genereres
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;  % Location sættes
+    %    handles.MyData.Layers(strcmp({handles.MyData.Layers.ROIS.Id},id)).ROI = ROI;       % ROI sættes
+     
+    else 
+    id = ['ROI' num2str(1)];          % id genereres                                      
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;
+      %  handles.MyData.Layers(ImPos).ROIS.ROI.Location = pos;    % Location sættes
+      %  handles.MyData.Layers(ImPos).ROIS.ROI = ROI;
+      
+    
+     handles.MyData.Layers(ImPos).ROIS.ROI(1).mean = mean;
+end 
+
+%Præallokering
+% y = zeros(1, mValue);
+% 
+% for i = 1:mValue
+%     image = double(handles.MyData.Layers(ImPos).Images(i).Image);
+% 
+%     % Find den del i image, som ROI'en indkranser
+%     image(mask == 0) = 0;
+% 
+%     % Normalisér billedet
+%     pic = image/max(image(:));
+% 
+%     % Tag middelværdi af værdierne i ROI'en
+%     y(i) = mean(pic(:));
+%     handles.MyData.Layers(ImPos).ROIS.ROI1.mean(i) = y(i);
+% end
+% 
+% handles.MyData.Layers(ImPos).ROIS.pos = getPosition(handles.MyData.Layer(ImPos).ROIS);
+% 
+ end
 

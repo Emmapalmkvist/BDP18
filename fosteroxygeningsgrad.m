@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 24-May-2018 08:36:34
+% Last Modified by GUIDE v2.5 23-May-2018 19:45:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -238,7 +238,7 @@ function tbDrawROI_OnCallback(hObject, eventdata, handles)
 % hObject    handle to tbDrawROI (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-CreateROIs(handles);
+handles = CreateROIs(handles);
 guidata(hObject, handles);
 
 
