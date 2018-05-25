@@ -5,7 +5,7 @@ axes(handles.axDrawROI);            % Udvælgelse af axes der kan tegnes på.
 % notificerer med messagebox og returnerer fra
 % funktionen, hvis det er tilfældet.
 if ~isfield(handles, 'MyData') || isempty(handles.MyData)
-    msgbox('Indlæs venligst billede');
+    msgbox('Indlæs venligst billeder');
     return;
 end    
 
