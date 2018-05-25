@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 23-May-2018 19:45:47
+% Last Modified by GUIDE v2.5 25-May-2018 14:07:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -128,6 +128,8 @@ function lbT2Ana_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns lbT2Ana contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from lbT2Ana
+handles.output = hObject;
+guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function lbT2Ana_CreateFcn(hObject, eventdata, handles)
@@ -267,3 +269,11 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function tbSave_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbSave (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+SaveData(handles);

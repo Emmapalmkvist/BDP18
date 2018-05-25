@@ -1,7 +1,7 @@
 function SaveData(handles)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-if ~isfield(handles, 'Layers') || isempty(handles.MyData)
+if ~isfield(handles, 'MyData') || isempty(handles.MyData)
     msgbox('Der er ingen analyse at gemme')
     return;
 end
@@ -10,6 +10,6 @@ end
 % genereres fileName med fullfile ud fra PathName og FileName.
 GFPname = ['FullAnalysis_' handles.MyData.Layers.fileName];
 [FileName,PathName] = uiputfile('.mat','Hvor skal analysen gemmes?',GFPname);
-fileName = fullfile(PathName,FileName);
+fileName = fullfile(PathName,FileName);c
 end
 
