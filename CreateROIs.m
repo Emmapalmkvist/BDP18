@@ -31,6 +31,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
     
         id = ['ROI' num2str(idx+1)];                                      % id genereres
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Mask = mask;
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;  % Location sættes
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).MeanValue = y;
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
@@ -41,10 +42,12 @@ if isfield(handles.MyData.Layers, 'ROIS')
         % Sørg for, at den senest tegnede ROI er markeret i listboksen
         set(handles.lbT2Ana, 'Value', idx+1);
      
+        handles = fitMeanIntensities(handles, idx+1);
     
     else 
     id = ['ROI' num2str(1)];          % id genereres                                      
         handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).Mask = mask;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;         
         handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
@@ -52,8 +55,10 @@ if isfield(handles.MyData.Layers, 'ROIS')
         set(handles.lbT2Ana, 'String', {handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID});
         % Sørg for, at den senest tegnede ROI er markeret i listboksen
         set(handles.lbT2Ana, 'Value', 1);
+        
+        handles = fitMeanIntensities(handles, 1);
 end 
 
-handles = fitMeanIntensities(handles);
+
  end
 
