@@ -15,7 +15,7 @@ if dirName ~= 0
         
     % Counters for number of T2-images and number of Localizer images
     CntT2 = 1;
-    CntLoc = 1
+    CntLoc = 1;
     numberoffiles = length(files);
     wb = waitbar(0,'Henter DICOM-billeder');
     
