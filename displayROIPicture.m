@@ -13,8 +13,8 @@ ImPos = ceil(get(handles.SliderLayer, 'Value'));
  
   if isfield(handles.MyData.Layers,'ROIS')
         %imellipse(gca,handles.MyData.ROIpos);
-        handles.MyData.Layers.ROIS = displayROISonPicture(handles);
+        ROI = displayROISonPicture(handles);
         %guidata(handles.btnZoom,handles);
-        
+  end  
 end
 
