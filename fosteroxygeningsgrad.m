@@ -128,7 +128,8 @@ function lbT2Ana_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns lbT2Ana contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from lbT2Ana
-
+handles.output = hObject;
+guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function lbT2Ana_CreateFcn(hObject, eventdata, handles)
