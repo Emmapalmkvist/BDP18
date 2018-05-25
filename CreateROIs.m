@@ -37,6 +37,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
     id = ['ROI' num2str(1)];          % id genereres                                      
         handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;
+        
       %  handles.MyData.Layers(ImPos).ROIS.ROI.Location = pos;    % Location sættes
       %  handles.MyData.Layers(ImPos).ROIS.ROI = ROI;
       
