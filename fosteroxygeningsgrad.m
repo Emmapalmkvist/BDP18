@@ -83,6 +83,8 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
  displayROIPicture(handles);
+ 
+ 
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
