@@ -23,14 +23,3 @@ for ii = 1:length(files)
     location{ii} = iminfo.SliceLocation;
     angle{ii} = iminfo.FlipAngle;
     
-    %
-    %if(length(im) == 512)
-    %stack512(:, :, 1, ii) = im;
-    %elseif(length(im) == 256)
-    %    stack256(:, :, 1, ii) = im;
-    %end
-    
-end
-
-location = location';
-
