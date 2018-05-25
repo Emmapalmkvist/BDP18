@@ -51,6 +51,5 @@ if isfield(handles.MyData.Layers, 'ROIS')
 end 
 
 handles = fitMeanIntensities(handles);
-handles = fitPixelIntensities(handles);
  end
 
