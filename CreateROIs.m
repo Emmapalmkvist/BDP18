@@ -50,6 +50,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
         set(handles.lbT2Ana, 'String', {handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID});
 end 
 
-
+handles = fitMeanIntensities(handles);
+handles = fitPixelIntensities(handles);
  end
 

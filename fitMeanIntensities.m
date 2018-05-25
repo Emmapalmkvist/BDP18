@@ -15,6 +15,7 @@ f = fit(x, y, 'exp1');
 
 handles.MyData.Layers(layerPos).ROIS(1).ROI.T2 = -1/f.b;
 
-
+axes(handles.axT2Graph)
+plot(f, x, y);
 end
 
