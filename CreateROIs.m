@@ -10,14 +10,12 @@ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
 end    
 
 ImPos = get(handles.SliderLayer, 'Value');
-mValue = get(handles.SliderROIPicture, 'Max');
 
 % Tegn ROI
 ROI = impoly;
 ROI.Deletable = 0; 
 pos = getPosition(ROI);
-
-mean = getMeanROI(ROI);
+%mean = getMeanROI(ROI);
 
 % Lav maske ud fra ROI
 mask = ROI.createMask;
@@ -25,7 +23,7 @@ mask = ROI.createMask;
 if isfield(handles.MyData.Layers, 'ROIS')
 
     if ~isempty(handles.MyData.Layers(ImPos).ROIS)
-        idx = str2num(handles.MyData.Layers(ImPos).ROIS.ROI(end).ROIID(end));
+        idx = length(handles.MyData.Layers(ImPos).ROIS(:));
     else
         idx = 0; 
     end
@@ -43,7 +41,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
       %  handles.MyData.Layers(ImPos).ROIS.ROI = ROI;
       
     
-     handles.MyData.Layers(ImPos).ROIS.ROI(1).mean = mean;
+ %    handles.MyData.Layers(ImPos).ROIS.ROI(1).mean = mean;
 end 
 
 %Præallokering
