@@ -38,6 +38,8 @@ if isfield(handles.MyData.Layers, 'ROIS')
         oldList = get(handles.lbT2Ana, 'String');
         newList = strvcat(char(oldList), char(handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID));
         set(handles.lbT2Ana, 'String', newList);
+        % Sørg for, at den senest tegnede ROI er markeret i listboksen
+        set(handles.lbT2Ana, 'Value', idx+1);
      
     
     else 
@@ -48,6 +50,8 @@ if isfield(handles.MyData.Layers, 'ROIS')
         handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
         
         set(handles.lbT2Ana, 'String', {handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID});
+        % Sørg for, at den senest tegnede ROI er markeret i listboksen
+        set(handles.lbT2Ana, 'Value', 1);
 end 
 
 handles = fitMeanIntensities(handles);

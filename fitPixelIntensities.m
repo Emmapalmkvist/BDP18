@@ -43,6 +43,7 @@ end
 
 handles.MyData.Layers(layerPos).ROIS(1).ROI.EchoPix(1).T2 = PixelT2(:);
 
-
+% Luk waitbaren
+close(wb)
 end
 
