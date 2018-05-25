@@ -2,6 +2,8 @@ function handles = fitPixelIntensities(handles)
 %FITPIXELINTENSITIES Fitter hver enkel pixel gennem ekkotiderne og udregner T2*-værdien for pixelen
 %   Detailed explanation goes here
 
+wb = waitbar(0, 'Beregner pixelvis T2*');
+
 % Find antallet af pixels i ROI'en
 layerPos = get(handles.SliderLayer, 'Value');
 numbPix = length(handles.MyData.Layers(layerPos).ROIS(1).ROI.EchoPix(1).Pixels);
@@ -34,6 +36,7 @@ for i = 1:numbPix
   handles.MyData.Layers(layerPos).ROIS(1).ROI.EchoPix(1).GOF(i) = gof;
    % Udregn T2*
    PixelT2(i) = -1/f.b;
+   waitbar(i/numbPix,wb);
 end
 
  %handles.MyData.Layers(layerPos).ROIS(1).ROI.EchoPix.GOF = GOF;
