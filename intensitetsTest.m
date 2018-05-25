@@ -13,6 +13,8 @@ echoPos = get(handles.SliderROIPicture, 'Value');
 mValue = get(handles.SliderROIPicture, 'Max');
 
 y = zeros(1, mValue);
+%ech = nan(1, mValue);
+p = zeros(1, mValue);
 
 for i = 1:mValue
     image = double(handles.MyData.Layers(layerPos).Images(i).Image);
@@ -25,6 +27,11 @@ for i = 1:mValue
 
     % Tag middelværdi af værdierne i ROI'en
     y(i) = mean(pic(:));
+    idx = pic(mask);
+ 
+    ech(i).Pixels = idx;
+%    l(i) = pic(idx);
+    
 end
 
 y = y';
@@ -33,6 +40,25 @@ x = ([handles.MyData.Layers(1).Images.EchoTime])';
 f = fit(x,y,'exp1');
 figure;
 plot(f,x,y)
+
+b = zeros(1, length(p))
+T = zeros(1, mValue);
+pMean = 0;
+
+%for ii = 1:length(l)
+ %   pMean = pMean + 
+  %  
+%end
+
+
+% for i  = 1:mValue
+% b(i) = log(p(i)/f.a)/x(i);
+% T2p = -1/b(i);
+% 
+% end
+
+
+
 %%
 
 CellNr = strcmp({handles.cellData.Id},id);          % Henter det specefikke Id på cellen der skal analyseres
