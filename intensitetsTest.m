@@ -11,7 +11,7 @@ layerPos = get(handles.SliderLayer, 'Value');
 % Antallet af billeder i snittet
 mValue = get(handles.SliderROIPicture, 'Max');
 
-% Klargør array til signalintensiteter for hver echotime
+% Klargør array til middelværdien af signalintensiteterne for hver echotime
 y = zeros(1, mValue);
 % Klargør struct til pixels signalintensiteter for hver echotime
 ech = struct([]);
@@ -25,27 +25,51 @@ for i = 1:mValue
     % Find de intensiteter i billedet, som ROI'en indkranser
     image = image(mask);
 
-    % Normalisér billedet
-    pic = image/max(image(:));
+    % Normalisér billedet??
+    %pic = image/max(image(:));
 
     % Tag middelværdi af værdierne i ROI'en
-    y(i) = mean(pic(:));
+    y(i) = mean(image(:));
     %idx = pic(mask);
  
-    ech(i).Pixels = pic;
+    ech(i).Pixels = image;
 %    l(i) = pic(idx);
     
 end
 
+% Vend intensitets-vektoren og opret echotids-vektor
 y = y';
-x = ([handles.MyData.Layers(1).Images.EchoTime])';
+x = ([handles.MyData.Layers(layerPos).Images.EchoTime])';
 
+% Fit de to vektorer efter exp1
 f = fit(x,y,'exp1');
 figure;
 plot(f,x,y)
 
-EchoT2 = struct([]);
+% Udregn T2 for middelværdierne ud fra b-værdien
+meanT2 = -1/b;
 
+%EchoT2 = struct([]);
+EchoT2 = zeros(1, length(ech(1).Pixels));
+
+
+%%
+
+for ii = 1:length(ech(1).Pixels)
+    Pix = zeros(1, length(ech));
+    eTime = zeros(1, length(ech));
+   for iii = 1:length(ech)
+       Pix(iii) = ech(iii).Pixels(ii);
+       eTime(iii) = handles.MyData.Layers(layerPos).Images(iii).EchoTime;
+   end
+   Pix = Pix';
+   eTime = eTime';
+   f = fit(Pix, eTime, 'exp1');
+   EchoT2(ii) = -1/f.b;
+end
+
+test = 2 ;
+%%
 for ii = 1:length(ech)
     PixT2 = zeros(1, length(ech(ii).Pixels));
 for iii = 1:length(ech(ii).Pixels)

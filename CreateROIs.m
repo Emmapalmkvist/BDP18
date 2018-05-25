@@ -19,7 +19,7 @@ pos = getPosition(ROI);
 % Lav maske ud fra ROI
 mask = ROI.createMask;
 
-y = getMeanROI(handles, mask);
+[y, echoPix] = getMeanROI(handles, mask);
 
 if isfield(handles.MyData.Layers, 'ROIS')
 
@@ -32,7 +32,8 @@ if isfield(handles.MyData.Layers, 'ROIS')
         id = ['ROI' num2str(idx+1)];                                      % id genereres
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;  % Location sættes
-         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).mean = y;
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).MeanValue = y;
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
    
         oldList = get(handles.lbT2Ana, 'String');
         newList = strvcat(char(oldList), char(handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID));
@@ -43,7 +44,8 @@ if isfield(handles.MyData.Layers, 'ROIS')
     id = ['ROI' num2str(1)];          % id genereres                                      
         handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;         
-        handles.MyData.Layers(ImPos).ROIS.ROI(1).mean = y;
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
         
         set(handles.lbT2Ana, 'String', {handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID});
 end 
