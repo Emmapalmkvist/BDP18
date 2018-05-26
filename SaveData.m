@@ -39,4 +39,3 @@ for i = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
 
 end 
 end
-

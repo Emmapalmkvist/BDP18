@@ -4,7 +4,7 @@ function ROI = displayROISonPicture(handles)
 ImPos = get(handles.SliderLayer, 'Value');
 
  axes(handles.axDrawROI);
- %value = length(handles.MyData.Layers(ImPos).ROIS(:));
+ value = length(handles.MyData.Layers(ImPos).ROIS(:));
 for ii = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
 
     if isfield(handles.MyData.Layers(ImPos).ROIS(ii).ROI,'Location')
