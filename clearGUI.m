@@ -1,4 +1,4 @@
-function clearGUI(handles)
+function handles = clearGUI(handles)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,7 +11,8 @@ if isfield(handles, 'MyData')
     cla(handles.axDrawROI);
     handles.lbT2Ana.String = [];
     set(handles.txtT2,'String','');
-    set(handles.txtPatient, 'String', ''); 
+    set(handles.txtPatient, 'String', '');
+    %set(handles.txtT2reviderett, 'String', '');
 end
 
 end

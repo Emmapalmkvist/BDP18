@@ -7,7 +7,7 @@ function handles = loadFiles(handles)
     % SliceLocation: the slice location for the current image
     % EchoTime = the echo time for the current image
     
-clearGUI(handles);
+handles = clearGUI(handles);
     
 % Ask user to choose directory and if a directory is chosen, then save the
 % image and relevant information as stated above
