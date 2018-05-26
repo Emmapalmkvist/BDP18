@@ -18,11 +18,9 @@ PixelT2 = zeros(1, numbPix);
 for i = 1:numbPix
     % Præallokér til at indeholde pixelværdi pr. echotid
     Pix = zeros(1, echoTimes);
-    % Præallokér til at indeholde ekkotiden
-    %Echo =  zeros(1, echoTimes);
+    
    parfor ii = 1:echoTimes
        Pix(ii) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(ii).Pixels(i);
-       %Echo(ii) = handles.MyData.Layers(layerPos).Images(ii).EchoTime;
    end
    % Vend vektorerne
    Pix = Pix';
@@ -39,7 +37,7 @@ end
 
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
 
-handles = colormapPixels(handles, ROIID, layerPos);
+handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2);
 
 % Luk waitbaren
 close(wb)
