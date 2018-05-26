@@ -29,6 +29,9 @@ if nargin == 3
     axes(handles.axT2Graph)
     waitbar(3/3, wb)
     plot(f, x, y);
+    set(handles.axT2Graph.Ylabel, 'String', 'Middelintensitet');
+    set(handles.axT2Graph.Xlabel, 'String', 'Ekkotid');
+    
 elseif nargin == 4
     waitbar(3/3, wb);
     set(handles.txtT2revideret, 'String', T2);
