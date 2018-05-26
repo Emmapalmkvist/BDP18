@@ -8,6 +8,8 @@ function handles = SaveResults(handles)
 [file, path] = uiputfile('*.txt', 'Vælg filnavn', 'T2værdier_');
 fileName = fullfile(path, file);
 
+if fileName ~= 0
+
 %Danner filnavnen til filen
 %[filepath,name,extension] = fileparts(filename); 
 %resfilename = [name, '.txt']; 
@@ -29,5 +31,6 @@ for i = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
     fprintf(fid, 'T2* værdien for ROI %s er %f \r\n', str, (handles.MyData.Layers(ImPos).ROIS(i).ROI.T2));
 
 end 
+end
 end
 
