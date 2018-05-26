@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 25-May-2018 17:27:50
+% Last Modified by GUIDE v2.5 26-May-2018 13:01:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -279,7 +279,7 @@ function tbSave_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbSave (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-SaveData(handles);
+SaveAnalysis(handles);
 
 
 % --------------------------------------------------------------------
@@ -290,3 +290,12 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 ROIID = get(handles.lbT2Ana, 'Value');
 handles = fitPixelIntensities(handles, ROIID);
 guidata(hObject, handles);
+
+
+
+% --------------------------------------------------------------------
+function tbGemtilsenere_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbGemtilsenere (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+SaveData(handles);
