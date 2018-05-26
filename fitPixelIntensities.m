@@ -37,6 +37,14 @@ end
 
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
 
+maxRMSE = max([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse]);
+handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE = maxRMSE;
+handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE = min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse]);
+
+% Vis maks-værdi ude i GUI samt deaktivér plus-knap
+set(handles.etExcludePixels, 'String', num2str(round(maxRMSE, 2)));
+set(handles.btnExcludePlus, 'enable', 'off');
+
 handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2);
 
 % Luk waitbaren

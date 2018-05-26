@@ -19,7 +19,13 @@ T2s(pixelIdx) = 0;
 % Kør colormapning
 handles = colormapPixels(handles, ROIID, layerPos, T2s);
 
+% Lav en maske
+mask = logical(T2s);
+
+% Få gennemsnitsværdier for tilbageværende pixels
+[y, ~] = getMeanROI(handles, mask);
+
 % Udregn gennemsnitlige T2*-værdi for resterende pixels
-handles = fitMeanIntensities;
+handles = fitMeanIntensities(handles, ROIID, y);
 end
 

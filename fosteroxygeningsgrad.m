@@ -317,6 +317,21 @@ function btnExcludePlus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% Først findes max-værdien for RMSE
+layerPos = get(handles.SliderLayer, 'Value');
+ROIID = get(handles.lbT2Ana, 'Value');
+
+max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
+
+value = get(handles.etExcludePixels, 'String');
+value = str2double(value);
+if value < max
+    value = value + 0.01;
+    set(handles.etExcludePixels, 'String', num2str(value));
+    set(handles.btnExcludeMinus, 'enable', 'on');
+else
+    set(handles.btnExcludePlus, 'enable', 'off');
+end
 
 % --- Executes on button press in btnExcludeMinus.
 function btnExcludeMinus_Callback(hObject, eventdata, handles)
@@ -324,6 +339,21 @@ function btnExcludeMinus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% Først findes min-værdien for RMSE
+layerPos = get(handles.SliderLayer, 'Value');
+ROIID = get(handles.lbT2Ana, 'Value');
+
+min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE;
+
+value = get(handles.etExcludePixels, 'String');
+value = str2double(value);
+if value > min
+    value = value - 0.01;
+    set(handles.etExcludePixels, 'String', num2str(value));
+    set(handles.btnExcludePlus, 'enable', 'on');
+else
+    set(handles.btnExcludeMinus, 'enable', 'off');
+end
 
 
 function etExcludePixels_Callback(hObject, eventdata, handles)
@@ -353,3 +383,7 @@ function btnExclude_Callback(hObject, eventdata, handles)
 % hObject    handle to btnExclude (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+ROIID = get(handles.lbT2Ana, 'Value');
+boundary = get(handles.etExcludePixels, 'String');
+handles = excludePixels(handles, ROIID, str2double(boundary));
+guidata(hObject, handles)
