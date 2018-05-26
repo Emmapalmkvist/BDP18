@@ -15,7 +15,7 @@ ROI = impoly;
 % Hvis ROI'en er blevet tegner (ESC er ikke trykket), så skal nedenstående
 % udføres
 if ~isempty(ROI)
-ROI.Deletable = 0; 
+%ROI.Deletable = 1; 
 pos = getPosition(ROI);
 
 ImPos = get(handles.SliderLayer, 'Value');

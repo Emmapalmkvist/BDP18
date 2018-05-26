@@ -31,7 +31,7 @@ if nargin == 2
     plot(f, x, y);
 elseif nargin == 3
     waitbar(3/3, wb);
-    set(handles.txtT2revideret, 'String', round(T2));
+    set(handles.txtT2revideret, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
 end
 
