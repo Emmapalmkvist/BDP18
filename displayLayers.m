@@ -19,7 +19,7 @@ montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
 
 
 % Kald displayROIPicture for at få det første echotime-billede vist
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 
 %guidata(hObject, handles);
 end

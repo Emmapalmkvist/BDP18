@@ -10,6 +10,7 @@ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
 end    
 
 ImPos = get(handles.SliderLayer, 'Value');
+h_Im = handles.MyData.HandleToCurrentROIImage;
 
 % Tegn ROI
 ROI = impoly;
@@ -17,7 +18,7 @@ ROI.Deletable = 0;
 pos = getPosition(ROI);
 
 % Lav maske ud fra ROI
-mask = ROI.createMask;
+mask = createMask(ROI, h_Im);
 
 [y, echoPix] = getMeanROI(handles, mask);
 

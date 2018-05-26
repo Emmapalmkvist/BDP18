@@ -84,7 +84,8 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
- displayROIPicture(handles);
+ handles = displayROIPicture(handles);
+ guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -107,7 +108,8 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-displayLayers(handles);
+handles = displayLayers(handles);
+guidata(hObject, handles)
 
 
 
@@ -209,7 +211,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 guidata(hObject, handles);
 
 
@@ -263,7 +265,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 guidata(hObject, handles);
 
 
@@ -279,7 +281,7 @@ function tbSave_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbSave (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-SaveResults(handles);
+handles = SaveResults(handles);
 
 
 % --------------------------------------------------------------------
