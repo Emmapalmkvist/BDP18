@@ -31,6 +31,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
         ROInavn = inputdlg('Indtaste navn på ROI (vævstype', 'Navn på ROI', 1, {'Hjerte'});
         id = ROInavn;                                      % id genereres
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Mask = mask;
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;  % Location sættes
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).MeanValue = y;
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
@@ -38,7 +39,10 @@ if isfield(handles.MyData.Layers, 'ROIS')
         oldList = get(handles.lbT2Ana, 'String');
         newList = strvcat(char(oldList), char(handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID));
         set(handles.lbT2Ana, 'String', newList);
+        % Sørg for, at den senest tegnede ROI er markeret i listboksen
+        set(handles.lbT2Ana, 'Value', idx+1);
      
+        handles = fitMeanIntensities(handles, idx+1);
     
 else
     ROInavn = inputdlg('Indtast navn på ROI (f.eks. vævstype)', 'Navn på ROI', 1, {'Vævstype'});

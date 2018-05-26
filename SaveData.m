@@ -6,10 +6,12 @@ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
     return;
 end
 
-filnavn = 'analyse';
-[file,path] = uiputfile({'*.mat','CSV-filer'},'Gem data som', filnavn');
-filnavn = fullfile(path,file);
-save(filnavn,'-struct','handles','MyData')
+% Åbner en dialogbox hvor brugeren kan indskrive ønsket filnavn med .mat format. Herefter
+% genereres fileName med fullfile ud fra PathName og FileName.
+GFPname = ['FullAnalysis_' handles.MyData.Layers.fileName];
+[FileName,PathName] = uiputfile('.mat','Hvor skal analysen gemmes?',GFPname);
+fileName = fullfile(PathName,FileName);c
+end
 
 %save(filnavn);
 

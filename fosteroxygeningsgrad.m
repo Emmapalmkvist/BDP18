@@ -285,5 +285,6 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbFitPixels (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = fitPixelIntensities(handles);
+ROIID = get(handles.lbT2Ana, 'Value');
+handles = fitPixelIntensities(handles, ROIID);
 guidata(hObject, handles);
