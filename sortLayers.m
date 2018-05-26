@@ -64,3 +64,4 @@ for i = 1:length(uniqueValues)
 end
 end
 
+% Sortering foretaget med inspiration fra: https://blogs.mathworks.com/pick/2010/09/17/sorting-structure-arrays-based-on-fields/
