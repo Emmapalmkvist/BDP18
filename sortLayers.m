@@ -38,7 +38,7 @@ for i = 1:length(uniqueValues)
     
     % Sorter billederne i et snit efter stigende ekkotid ved at lave
     % structet om til et cell array og sorter på den ønskede kolonne
-    dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i)
+    dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
     fNames = fieldnames(dataStruct);
     dataCell = struct2cell(dataStruct);
     cellSize = size(dataCell);

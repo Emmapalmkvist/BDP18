@@ -14,6 +14,10 @@ h_Im = handles.MyData.HandleToCurrentROIImage;
 
 % Tegn ROI
 ROI = impoly;
+
+% Hvis ROI'en er blevet tegner (ESC er ikke trykket), så skal nedenstående
+% udføres
+if isempty(ROI) ~= 0
 ROI.Deletable = 0; 
 pos = getPosition(ROI);
 
@@ -60,6 +64,7 @@ else
         handles = fitMeanIntensities(handles, 1);
 end 
 
+end
 
  end
 
