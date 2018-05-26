@@ -14,8 +14,6 @@ echoTimes = get(handles.SliderROIPicture, 'Max');
 % Præallokér til at indeholde T2-værdierne for hver enkel pixel
 PixelT2 = zeros(1, numbPix);
 
-figure;
-
 for i = 1:numbPix
     % Præallokér til at indeholde pixelværdi pr. echotid
     Pix = zeros(1, echoTimes);

@@ -11,7 +11,7 @@ ImPos = ceil(get(handles.SliderLayer, 'Value'));
  %Normalisering
  currentIm = double(handles.MyData.Layers(ImPos).Images(ImPosROI).Image);
  currentIm = currentIm./max(currentIm(:));
- imshow(currentIm);
+ handles.MyData.HandleToCurrentROIImage = imshow(currentIm);
  
   if isfield(handles.MyData.Layers,'ROIS')
         %imellipse(gca,handles.MyData.ROIpos);

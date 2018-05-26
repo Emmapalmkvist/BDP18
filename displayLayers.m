@@ -1,6 +1,6 @@
 function handles = displayLayers(handles)
 %DISPLAYLAYERS Viser montage af billederne i et lag i axes
-
+%
 
 %Henter slider værdien og runder værdien op til nærmeste heltal. 
 ImPos = ceil(get(handles.SliderLayer, 'Value'));
@@ -19,7 +19,7 @@ montage([handles.MyData.Stacks(ImPos).Stack], 'Size', [antalRaekker,4])
 
 
 % Kald displayROIPicture for at få det første echotime-billede vist
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 
 %guidata(hObject, handles);
 end

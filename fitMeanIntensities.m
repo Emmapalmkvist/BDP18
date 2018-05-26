@@ -16,7 +16,8 @@ f = fit(x, y, 'exp1');
 waitbar(2/3, wb);
 T2 = -1/f.b;
 set(handles.txtT2, 'String', T2);
-handles.MyData.Layers(layerPos).ROIS(1).ROI.T2 = T2;
+handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
+handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 
 axes(handles.axT2Graph)
 waitbar(3/3)
