@@ -9,13 +9,17 @@ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
     return;
 end    
 
-ImPos = get(handles.SliderLayer, 'Value');
-h_Im = handles.MyData.HandleToCurrentROIImage;
-
 % Tegn ROI
 ROI = impoly;
+
+% Hvis ROI'en er blevet tegner (ESC er ikke trykket), så skal nedenstående
+% udføres
+if ~isempty(ROI)
 ROI.Deletable = 0; 
 pos = getPosition(ROI);
+
+ImPos = get(handles.SliderLayer, 'Value');
+h_Im = handles.MyData.HandleToCurrentROIImage;
 
 % Lav maske ud fra ROI
 mask = createMask(ROI, h_Im);
@@ -60,6 +64,7 @@ else
         handles = fitMeanIntensities(handles, 1);
 end 
 
+end
 
  end
 

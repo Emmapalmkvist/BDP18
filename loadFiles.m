@@ -7,10 +7,8 @@ function handles = loadFiles(handles)
     % SliceLocation: the slice location for the current image
     % EchoTime = the echo time for the current image
     
-%handles.lbT2Ana = [];
-
-%rmfield(files, field);
-
+handles = clearGUI(handles);
+    
 % Ask user to choose directory and if a directory is chosen, then save the
 % image and relevant information as stated above
 dirName = uigetdir('PC', 'Vælg et bibliotek med Dicom filer');
@@ -25,7 +23,7 @@ if dirName ~= 0
     
     for ii = 1:length(files)
         currentFile = fullfile(dirName, files(ii).name);
-        handles.MyData.currentFile = currentFile;
+        
         iminfo = dicominfo(currentFile);
         % Check the tag "SeriesDescription" to check if it's T2*
         if strfind(iminfo.SeriesDescription, 'T2')
@@ -48,5 +46,7 @@ if dirName ~= 0
     
     set(handles.txtPatient, 'String', iminfo.PatientID);
     handles.MyData.PatientID = iminfo.PatientID; 
+     
+   
 end
 

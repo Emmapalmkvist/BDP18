@@ -4,13 +4,11 @@ function handles = colormapPixels(handles, ROIID, layerPos)
 
 % Lav et billede til T2-værdierne
 im = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
-pic = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
 
 idx = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
 
 for i = 1:length(idx)
     im(idx(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
-    pic(idx(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(i).rsquare;
 end
 
 % Normaliser T2-værdierne til at ligge mellem 0-1
