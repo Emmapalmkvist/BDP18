@@ -1,4 +1,9 @@
 function handles = SaveResults(handles)
+
+ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
+     msgbox('Der er ikke gennemførst nogen analyse')
+     return;
+ end
 %Brugeren vælger navn og sti til filen 
 [file, path] = uiputfile('*.txt', 'Vælg filnavn', 'T2værdier_');
 fileName = fullfile(path, file);
