@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 26-May-2018 20:14:48
+% Last Modified by GUIDE v2.5 26-May-2018 17:31:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -309,47 +309,3 @@ function tbLoadAnalysis_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 LoadSavedAnalysis(handles);
-
-
-% --- Executes on button press in btnExcludePlus.
-function btnExcludePlus_Callback(hObject, eventdata, handles)
-% hObject    handle to btnExcludePlus (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in btnExcludeMinus.
-function btnExcludeMinus_Callback(hObject, eventdata, handles)
-% hObject    handle to btnExcludeMinus (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-
-function etExcludePixels_Callback(hObject, eventdata, handles)
-% hObject    handle to etExcludePixels (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of etExcludePixels as text
-%        str2double(get(hObject,'String')) returns contents of etExcludePixels as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function etExcludePixels_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to etExcludePixels (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on button press in btnExclude.
-function btnExclude_Callback(hObject, eventdata, handles)
-% hObject    handle to btnExclude (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
