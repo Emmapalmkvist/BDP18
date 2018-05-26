@@ -54,6 +54,8 @@ function fosteroxygeningsgrad_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for fosteroxygeningsgrad
 handles.output = hObject;
+axes(handles.axLogo)
+imshow('LogoAarhusUni.jpg');
 
 % Update handles structure
 guidata(hObject, handles);
