@@ -272,7 +272,8 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+msgbox('Hjælp \n hjælp', 'Hjælp')
+     return;
 
 % --------------------------------------------------------------------
 function tbSave_ClickedCallback(hObject, eventdata, handles)
