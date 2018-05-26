@@ -23,8 +23,7 @@ handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 axes(handles.axT2Graph)
 waitbar(3/3)
 plot(f, x, y);
-xlabel('Ekkotid');
-ylabel('Middel intensitet');
+
 
 close(wb);
 set(handles.figure1,'Pointer','arrow');
