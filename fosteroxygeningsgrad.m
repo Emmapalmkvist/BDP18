@@ -278,7 +278,7 @@ function tbSave_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbSave (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-SaveData(handles);
+handles = SaveResults(handles);
 
 
 % --------------------------------------------------------------------
@@ -289,3 +289,11 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 ROIID = get(handles.lbT2Ana, 'Value');
 handles = fitPixelIntensities(handles, ROIID);
 guidata(hObject, handles);
+
+
+% --------------------------------------------------------------------
+function uiSaveToLater_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to uiSaveToLater (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+SaveAnalysis(handles);

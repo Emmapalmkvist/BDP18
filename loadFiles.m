@@ -21,6 +21,7 @@ if dirName ~= 0
     
     for ii = 1:length(files)
         currentFile = fullfile(dirName, files(ii).name);
+        handles.MyData.currentFile = currentFile;
         iminfo = dicominfo(currentFile);
         % Check the tag "SeriesDescription" to check if it's T2*
         if strfind(iminfo.SeriesDescription, 'T2')
@@ -33,11 +34,15 @@ if dirName ~= 0
             handles.MyData.Loc(CntLoc).SliceLocation = iminfo.SliceLocation;
             handles.MyData.Loc(CntLoc).EchoTime = iminfo.EchoTime;
             CntLoc = CntLoc + 1;
+            
         end 
         waitbar(ii/numberoffiles,wb);
     end
     if exist('wb','var')
     close(wb);
     end
+    
+    set(handles.txtPatient, 'String', iminfo.PatientID);
+    handles.MyData.PatientID = iminfo.PatientID; 
 end
 
