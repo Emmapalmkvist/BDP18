@@ -17,7 +17,7 @@ ROI = impoly;
 
 % Hvis ROI'en er blevet tegner (ESC er ikke trykket), så skal nedenstående
 % udføres
-if isempty(ROI)
+if ~isempty(ROI)
 ROI.Deletable = 0; 
 pos = getPosition(ROI);
 
