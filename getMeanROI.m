@@ -11,13 +11,13 @@ y = zeros(1, echoPos);
 echoPix = struct([]);
 
 for i = 1:echoPos
-    image = double(handles.MyData.Layers(layerPos).Images(i).Image);
+    im = double(handles.MyData.Layers(layerPos).Images(i).Image);
 
     % Find den del i image, som ROI'en indkranser
-    image(mask == 0) = 0;
+    im(mask == 0) = 0;
 
     % Normalisér billedet
-    pic = image/max(image(:));
+    pic = im/max(im(:));
 
     % Find indexes for punkterne i ROI'en
     idx = find(mask);
@@ -26,7 +26,7 @@ for i = 1:echoPos
     intensity = pic(idx);
     
     % Tag middelværdi af værdierne i ROI'en
-    y(i) = mean(pic(:));
+    y(i) = mean(pic(idx));
     
     % --- TEST
     %echoPix(i).Pixels(:,1) = intensity(:);
