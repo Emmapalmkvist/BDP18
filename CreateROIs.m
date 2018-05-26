@@ -45,19 +45,20 @@ if isfield(handles.MyData.Layers, 'ROIS')
         handles = fitMeanIntensities(handles, idx+1);
     
 else
-    ROInavn = inputdlg('Indtast navn på ROI (f.eks. vævstype)', 'Navn på ROI', 1, {'Vævstype'});
+    ROInavn = inputdlg('Indtaste navn på ROI (vævstype', 'Navn på ROI', 1, {'Hjerte'});
     
-    
+    %ROInavn = msgbox(sprintf('Indtast navn på ROI(vævstype): %s' , ROIpaanavn));
     id = ROInavn;          % id genereres                                      
         handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).Mask = mask;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;         
         handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
         
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
+        handles = fitMeanIntensities(handles, 1);
 end 
 
-handles = fitMeanIntensities(handles);
-handles = fitPixelIntensities(handles);
+
  end
 
