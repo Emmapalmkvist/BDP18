@@ -46,7 +46,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
         handles = fitMeanIntensities(handles, idx+1);
     
 else
-    ROInavn = inputdlg('Indtaste navn på ROI (vævstype', 'Navn på ROI', 1, {'Hjerte'});
+    ROInavn = inputdlg('Indtast navn på ROI (vævstype)', 'Navn på ROI', 1, {'Hjerte'});
     
     %ROInavn = msgbox(sprintf('Indtast navn på ROI(vævstype): %s' , ROIpaanavn));
     id = ROInavn;          % id genereres                                      

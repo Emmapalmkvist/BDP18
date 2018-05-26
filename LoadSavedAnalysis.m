@@ -25,17 +25,16 @@ end
         
         wb = waitbar(0, 'Indlæser valgte analyse...');
         set(wb,'WindowStyle', 'modal' );
-        
+      
+                
+        % Opretter en waitbar og sætter den til modal, hvilket sætter den
+        % som forreste vindue.
     for ii = 1:length(handles.MyData)      
-        waitbar(ii/length(handles.MyData), wb, sprintf('Indlæser valgte analyse'))  
+        waitbar(ii/length(handles.MyData), wb, sprintf('Indlæser valgte analyse...'))  
     end
     
         displayLayers(handles);
-        displayROIPicture(handles);
-%Hvis den ikke viser ROIS, så mangler vi at kalde den metode... 
-        
-                % Opretter en waitbar og sætter den til modal, hvilket sætter den
-        % som forreste vindue.
+
         close(wb); 
 
 end

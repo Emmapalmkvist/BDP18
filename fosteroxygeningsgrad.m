@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 26-May-2018 15:21:16
+% Last Modified by GUIDE v2.5 26-May-2018 17:31:34
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -84,8 +84,7 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
- handles = displayROIPicture(handles);
- guidata(hObject, handles);
+ displayROIPicture(handles);
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -108,8 +107,7 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-handles = displayLayers(handles);
-guidata(hObject, handles)
+displayLayers(handles);
 
 
 
@@ -211,7 +209,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-handles = displayROIPicture(handles);
+displayROIPicture(handles);
 guidata(hObject, handles);
 
 
@@ -265,7 +263,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-handles = displayROIPicture(handles);
+displayROIPicture(handles);
 guidata(hObject, handles);
 
 
@@ -281,7 +279,7 @@ function tbSave_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbSave (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles = SaveResults(handles);
+SaveResults(handles);
 
 
 % --------------------------------------------------------------------
