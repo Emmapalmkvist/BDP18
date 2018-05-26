@@ -8,7 +8,7 @@ function handles = loadFiles(handles)
     % EchoTime = the echo time for the current image
     
 handles = clearGUI(handles);
-    
+   
 % Ask user to choose directory and if a directory is chosen, then save the
 % image and relevant information as stated above
 dirName = uigetdir('PC', 'Vælg et bibliotek med Dicom filer');
@@ -19,6 +19,7 @@ if dirName ~= 0
     CntT2 = 1;
     CntLoc = 1;
     numberoffiles = length(files);
+
     wb = waitbar(0,'Henter DICOM-billeder');
     
     for ii = 1:length(files)
