@@ -31,6 +31,8 @@ for i = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
     fprintf(fid, 'T2* værdien for ROI %s er %f \r\n', str, (handles.MyData.Layers(ImPos).ROIS(i).ROI.T2));
 
 end 
+    % Notification til brugeren om filen er gemt
+    msgbox(sprintf('Billedeanalyse er gemt i %s' , fileName), 'WindowStyle', 'modal');
 end
 end
 
