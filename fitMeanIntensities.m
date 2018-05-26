@@ -15,6 +15,7 @@ elseif nargin == 4
 end
 
 waitbar(1/3, wb);
+set(handles.figure1,'Pointer','watch');
 % Fit x og y-værdierne
 f = fit(x, y, 'exp1');
 waitbar(2/3, wb);
@@ -35,5 +36,6 @@ elseif nargin == 4
 end
 
 close(wb);
+set(handles.figure1,'Pointer','arrow');
 end
 

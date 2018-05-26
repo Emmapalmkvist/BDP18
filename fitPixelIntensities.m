@@ -3,6 +3,7 @@ function handles = fitPixelIntensities(handles, ROIID)
 %   Detailed explanation goes here
 
 wb = waitbar(0, 'Beregner pixelvis T2*');
+set(handles.figure1,'Pointer','watch')
 
 % Find antallet af pixels i ROI'en (i det snit)
 layerPos = get(handles.SliderLayer, 'Value');
@@ -40,5 +41,6 @@ handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPo
 
 % Luk waitbaren
 close(wb)
+set(handles.figure1,'Pointer','arrow')
 end
 

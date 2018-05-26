@@ -26,6 +26,9 @@ ImPos = ceil(get(handles.SliderLayer, 'Value'));
 ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
 currentIm = double(handles.MyData.Layers(ImPos).Images(ImPosROI).Image);
 
+% Hent masken
+mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
+
 % Konverter billedet (bestående af pixelsværdier) til indexeret billede med
 % den grå colormap med N = 128
 %currentIm = gray2ind(double(currentIm)/max(currentIm(:)),128);
