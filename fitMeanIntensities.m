@@ -8,10 +8,10 @@ layerPos = get(handles.SliderLayer, 'Value');
 
 % Lav x-vektor
 x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
-if nargin == 3
+if nargin == 2
     y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
-elseif nargin == 4
-    y = meanValues;
+elseif nargin == 3
+    y = meanValues';
 end
 
 waitbar(1/3, wb);
@@ -21,7 +21,7 @@ f = fit(x, y, 'exp1');
 waitbar(2/3, wb);
 T2 = -1/f.b;
 
-if nargin == 3
+if nargin == 2
     set(handles.txtT2, 'String', T2);
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
@@ -32,12 +32,11 @@ if nargin == 3
     set(handles.axT2Graph.Ylabel, 'String', 'Middelintensitet');
     set(handles.axT2Graph.Xlabel, 'String', 'Ekkotid');
     
-elseif nargin == 4
+elseif nargin == 3
     waitbar(3/3, wb);
-    set(handles.txtT2revideret, 'String', T2);
+    set(handles.txtT2revideret, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
 end
-
 
 close(wb);
 set(handles.figure1,'Pointer','arrow');

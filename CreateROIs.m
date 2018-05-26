@@ -61,7 +61,7 @@ else
         handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
         
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
-        handles = fitMeanIntensities(handles, 1, y);
+        handles = fitMeanIntensities(handles, 1);
 end 
 
 end
