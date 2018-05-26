@@ -1,6 +1,6 @@
 function handles = displayLayers(handles)
 %DISPLAYLAYERS Viser montage af billederne i et lag i axes
-%
+
 
 %Henter slider værdien og runder værdien op til nærmeste heltal. 
 ImPos = ceil(get(handles.SliderLayer, 'Value'));

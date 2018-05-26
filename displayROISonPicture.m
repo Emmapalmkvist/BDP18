@@ -1,6 +1,8 @@
 function ROI = displayROISonPicture(handles)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
+
+
 ImPos = get(handles.SliderLayer, 'Value');
 
  axes(handles.axDrawROI);

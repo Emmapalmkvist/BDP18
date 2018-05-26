@@ -19,6 +19,7 @@ ImPos = (get(handles.SliderLayer, 'Value'));
 
 %Udskriver resultaterne 
 fprintf(fid, '*** Resultater for %s ***\r\n', file); 
+fprintf(fid, 'Patientens CPR-nummer: %s \r\n', handles.MyData.PatientID);
 fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', ImPos);
 fprintf(fid, 'På dette snit %d er der indtegnet %d ROI. \r\n', (get(handles.SliderLayer, 'Value')), (length(handles.MyData.Layers(1).ROIS)));
 

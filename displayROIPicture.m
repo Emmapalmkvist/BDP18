@@ -1,6 +1,8 @@
 function handles = displayROIPicture(handles)
 %DisplayROIPicture Viser billederne i det valgte snit i axes
 %   
+%Clear plot 
+cla(handles.axDrawROI)
 
 ImPos = ceil(get(handles.SliderLayer, 'Value'));
  ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
