@@ -1,6 +1,6 @@
 function SaveAnalysis(handles)
  if ~isfield(handles, 'MyData') || isempty(handles.MyData)
-     msgbox('Der er ingen analyse at gemme')
+     msgbox('Der er ikke startet på nogen analyse')
      return;
  end
  
@@ -8,6 +8,6 @@ function SaveAnalysis(handles)
 % genereres fileName med fullfile ud fra PathName og FileName.
  GFPname = ['FullAnalysis_' handles.MyData.Layers.fileName];
  [FileName,PathName] = uiputfile('.mat','Hvor skal analysen gemmes?',GFPname);
-  fileName = fullfile(PathName,FileName);
+ fileName = fullfile(PathName,FileName);
 
 end
