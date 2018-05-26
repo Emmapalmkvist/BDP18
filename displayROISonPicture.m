@@ -11,6 +11,9 @@ for ii = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
 
     if isfield(handles.MyData.Layers(ImPos).ROIS(ii).ROI,'Location')
         ROI = impoly(gca,handles.MyData.Layers(ImPos).ROIS(ii).ROI.Location);
+        pos = handles.MyData.Layers(ImPos).ROIS(ii).ROI.Location;
+        id = handles.MyData.Layers(ImPos).ROIS(ii).ROI.ROIID;
+        text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');
     else
           impoly;
     end

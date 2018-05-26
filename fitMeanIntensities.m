@@ -29,12 +29,12 @@ if nargin == 2
     axes(handles.axT2Graph)
     waitbar(3/3, wb)
     plot(f, x, y);
-    set(handles.axT2Graph.Ylabel, 'String', 'Middelintensitet');
-    set(handles.axT2Graph.Xlabel, 'String', 'Ekkotid');
+    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Middelintensitet'); 
+    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
     
 elseif nargin == 3
     waitbar(3/3, wb);
-    set(handles.txtT2revideret, 'String', round(T2, 2));
+    set(handles.txtT2Revideret, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
 end
 

@@ -110,7 +110,8 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 
 handles = displayLayers(handles);
 guidata(hObject, handles);
-handles = clearAnalysis(handles);
+%handles = clearAnalysis(handles);
+%guidata(hObject, handles);
 
 
 % --- Executes during object creation, after setting all properties.

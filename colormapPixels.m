@@ -1,15 +1,16 @@
-function handles = colormapPixels(handles, ROIID, layerPos, T2s)
+function handles = colormapPixels(handles, ROIID, layerPos, indexes)
 %COLORMAPPIXELS Farvelægger pixel'ene i en ROI ud fra T2*-værdierne
 %   Detailed explanation goes here
 
 % Lav et billede til T2-værdierne
-im = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
+%im = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
+im = zeros(256, 256);
 
-idx = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
+%indexes = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
 
-for i = 1:length(idx)
+for i = 1:length(indexes)
     %im(idx(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
-    im(idx(i)) = T2s(i);
+    im(indexes(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
 end
 
 % Normaliser T2-værdierne til at ligge mellem 0-1

@@ -45,7 +45,7 @@ handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE = min([handle
 set(handles.etExcludePixels, 'String', num2str(round(maxRMSE, 2)));
 set(handles.btnExcludePlus, 'enable', 'off');
 
-handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2);
+handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes);
 
 % Luk waitbaren
 close(wb)
