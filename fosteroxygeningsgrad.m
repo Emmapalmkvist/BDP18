@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 26-May-2018 13:44:23
+% Last Modified by GUIDE v2.5 26-May-2018 15:21:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -298,3 +298,11 @@ function uiSaveToLater_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 SaveAnalysis(handles);
+
+
+% --------------------------------------------------------------------
+function tbLoadAnalysis_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to tbLoadAnalysis (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+LoadSavedAnalysis(handles);
