@@ -33,8 +33,24 @@ layer = num2cell(layer);
 
 % Alle lagene løbes igennem
 for i = 1:length(uniqueValues)
-    % Alle billederne tilhørende nuværende lag gemmes
-    handles.MyData.Layers(i).Images = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
+    % Alle billederne tilhørende nuværende snit gemmes
+    %handles.MyData.Layers(i).Images = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
+    
+    % Sorter billederne i et snit efter stigende ekkotid ved at lave
+    % structet om til et cell array og sorter på den ønskede kolonne
+    dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i)
+    fNames = fieldnames(dataStruct);
+    dataCell = struct2cell(dataStruct);
+    cellSize = size(dataCell);
+    dataCell = reshape(dataCell, cellSize(1), []);
+    dataCell = dataCell';
+    % Sortér efter kolonne 3, som er ekkotiden
+    dataCell = sortrows(dataCell, 3);
+    dataCell = reshape(dataCell', cellSize);
+    
+    % Alle billederne tilhørende nuværende snit gemmes
+    handles.MyData.Layers(i).Images = cell2struct(dataCell, fNames, 1);
+    
     numbOfPics = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==i));
     
     % Alle billederne i et lag løbes igennem

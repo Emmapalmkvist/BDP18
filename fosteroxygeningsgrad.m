@@ -106,7 +106,8 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-displayLayers(handles);
+handles = displayLayers(handles);
+guidata(hObject, handles)
 
 
 
