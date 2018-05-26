@@ -10,7 +10,7 @@ fileName = fullfile(path, file);
 %Opretter en fil med en identifier (fid)
 fid = fopen(fileName, 'w'); % 'w' specifies write access' 
 
-ImPos = (get(handles.SliderLayer, 'Value'))s
+ImPos = (get(handles.SliderLayer, 'Value'));
 
 %Udskriver resultaterne 
 fprintf(fid, '*** Resultater for %s ***\r\n', file); 
