@@ -34,6 +34,7 @@ if dirName ~= 0
             handles.MyData.Loc(CntLoc).SliceLocation = iminfo.SliceLocation;
             handles.MyData.Loc(CntLoc).EchoTime = iminfo.EchoTime;
             CntLoc = CntLoc + 1;
+            
         end 
         waitbar(ii/numberoffiles,wb);
     end
@@ -41,6 +42,7 @@ if dirName ~= 0
     close(wb);
     end
     
-    set(handles.txtPatient, 'String', handles.MyData.currentFile);
+    set(handles.txtPatient, 'String', iminfo.PatientID);
+    handles.MyData.PatientID = iminfo.PatientID; 
 end
 
