@@ -259,9 +259,9 @@ handles = sortLayers(handles);
 guidata(hObject, handles);
 
 
-initialisererSliders(handles);
+handles = initialisererSliders(handles);
 guidata(hObject, handles);
-displayLayers(handles);
+handles = displayLayers(handles);
 guidata(hObject, handles);
 
 handles = displayROIPicture(handles);
