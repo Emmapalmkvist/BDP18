@@ -1,4 +1,4 @@
-function handles = fitMeanIntensities(handles, ROIidx)
+function handles = fitMeanIntensities(handles, ROIidx, meanValues)
 %FITMEANINTENSITIES Fitter middelintensiteterne og udregner T2* derfra
 %   Detailed explanation goes here
 
@@ -8,7 +8,11 @@ layerPos = get(handles.SliderLayer, 'Value');
 
 % Lav x-vektor
 x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
-y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+if nargin == 3
+    y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+elseif nargin == 4
+    y = meanValues;
+end
 
 waitbar(1/3, wb);
 set(handles.figure1,'Pointer','watch');
@@ -16,13 +20,20 @@ set(handles.figure1,'Pointer','watch');
 f = fit(x, y, 'exp1');
 waitbar(2/3, wb);
 T2 = -1/f.b;
-set(handles.txtT2, 'String', round(T2,2));
-handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
-handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 
-axes(handles.axT2Graph)
-waitbar(3/3)
-plot(f, x, y);
+if nargin == 3
+    set(handles.txtT2, 'String', T2);
+    handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
+    handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
+
+    axes(handles.axT2Graph)
+    waitbar(3/3, wb)
+    plot(f, x, y);
+elseif nargin == 4
+    waitbar(3/3, wb);
+    set(handles.txtT2revideret, 'String', T2);
+    handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
+end
 
 
 close(wb);
