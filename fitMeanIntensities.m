@@ -22,7 +22,7 @@ waitbar(2/3, wb);
 T2 = -1/f.b;
 
 if nargin == 2
-    set(handles.txtT2, 'String', T2);
+    set(handles.txtT2, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 
