@@ -46,6 +46,7 @@ if dirName ~= 0
     end
     
     set(handles.txtPatient, 'String', iminfo.PatientID);
+    set(handles.txtPatient,'Visible','on');
     handles.MyData.PatientID = iminfo.PatientID; 
      
    

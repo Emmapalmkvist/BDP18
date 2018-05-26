@@ -33,7 +33,7 @@ if isfield(handles.MyData.Layers, 'ROIS')
     else
         idx = 0; 
     end
-        ROInavn = inputdlg('Indtaste navn på ROI (vævstype', 'Navn på ROI', 1, {'Hjerte'});
+        ROInavn = inputdlg('Indtast navn på ROI (vævstype)', 'Navn på ROI', 1, {'Hjerte'});
         id = ROInavn;                                      % id genereres
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Mask = mask;
@@ -62,11 +62,15 @@ else
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;         
         handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
+      
+        text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on')
         
-        text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');
-        
+        set(handles.GroupT2Ana, 'Visible', 'on');
+        set(handles.GruoupChoices, 'Visible', 'on');
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
         handles = fitMeanIntensities(handles, 1);
+        
+      
 end 
 
 end
