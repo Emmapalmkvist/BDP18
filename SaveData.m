@@ -1,4 +1,4 @@
-function handles = SaveData(handles)
+function SaveData(handles)
  if ~isfield(handles, 'MyData') || isempty(handles.MyData)
      msgbox('Der er ingen analyse at gemme')
      return;
