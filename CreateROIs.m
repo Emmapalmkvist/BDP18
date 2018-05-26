@@ -62,6 +62,14 @@ else
         
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
         handles = fitMeanIntensities(handles, 1, y);
+        
+        %text((handles.MyData.Layers(ImPos).ROIS.ROI(1).Location(1,1)), (handles.MyData.Layers(ImPos).ROIS.ROI(1).Location(1,2)), sprintf('ROI'), 'color', [0.7 0.7 0]);
+%        position = [(handles.MyData.Layers(ImPos).ROIS.ROI(1).Location(1,1)),(handles.MyData.Layers(ImPos).ROIS.ROI(1).Location(1,2))]
+%        RGB = insertText((handles.MyData.T2(ImPos).Image), position, 'ROI', 'AnchorPoint','LeftBottom');
+%        axes(handles.axDrawROI)
+%        handles.MyData.HandleToCurrentROIImage = imshow(RGB);
+%        imshow(RGB);
+       
 end 
 
 end
