@@ -84,7 +84,7 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
- displayROIPicture(handles);
+ handles = displayROIPicture(handles);
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -107,7 +107,8 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
-displayLayers(handles);
+handles = displayLayers(handles);
+guidata(hObject, handles);
 
 
 
@@ -209,7 +210,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 guidata(hObject, handles);
 
 
@@ -263,7 +264,7 @@ guidata(hObject, handles);
 displayLayers(handles);
 guidata(hObject, handles);
 
-displayROIPicture(handles);
+handles = displayROIPicture(handles);
 guidata(hObject, handles);
 
 
