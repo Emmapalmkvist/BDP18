@@ -6,6 +6,10 @@ function handles = loadFiles(handles)
     % Image: the loaded dicom image
     % SliceLocation: the slice location for the current image
     % EchoTime = the echo time for the current image
+    
+%handles.lbT2Ana = [];
+
+%rmfield(files, field);
 
 % Ask user to choose directory and if a directory is chosen, then save the
 % image and relevant information as stated above
