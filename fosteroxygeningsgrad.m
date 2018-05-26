@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 26-May-2018 13:01:37
+% Last Modified by GUIDE v2.5 26-May-2018 13:44:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,8 +54,6 @@ function fosteroxygeningsgrad_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for fosteroxygeningsgrad
 handles.output = hObject;
-axes(handles.axLogo)
-imshow('LogoAarhusUni.jpg');
 
 % Update handles structure
 guidata(hObject, handles);
@@ -279,7 +277,7 @@ function tbSave_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbSave (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-SaveAnalysis(handles);
+handles = SaveResults(handles);
 
 
 % --------------------------------------------------------------------
@@ -292,10 +290,9 @@ handles = fitPixelIntensities(handles, ROIID);
 guidata(hObject, handles);
 
 
-
 % --------------------------------------------------------------------
-function tbGemtilsenere_ClickedCallback(hObject, eventdata, handles)
-% hObject    handle to tbGemtilsenere (see GCBO)
+function uiSaveToLater_ClickedCallback(hObject, eventdata, handles)
+% hObject    handle to uiSaveToLater (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-SaveData(handles);
+SaveAnalysis(handles);
