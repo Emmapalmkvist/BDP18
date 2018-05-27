@@ -14,13 +14,13 @@ for i = 1:length(indexes)
 end
 
 % Normaliser T2-værdierne til at ligge mellem 0-1
-imNorm = (im-min(im(:)))/(max(im(:))-min(im(:)));
+%imNorm = (im-min(im(:)))/(max(im(:))-min(im(:)));
 
 % Hent masken
-mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
+%mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
 
 % Fjern indhold udenfor ROI'en
-imNorm(mask == 0) = 0;
+%imNorm(mask == 0) = 0;
 
 % Find det nuværende billede
 ImPos = ceil(get(handles.SliderLayer, 'Value'));

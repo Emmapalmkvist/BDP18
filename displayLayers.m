@@ -16,7 +16,7 @@ antalRaekker = length(handles.MyData.Layers(layerPos).Images)/4;
 %Montage vise alle snitbillederne i et stort billede.
 %Strack(ImPos).Strack - fortæller hvilken strack der skal bruges ud fra
 %snitposisionen, og så finder den alle billedern i det snit.
-montage([handles.MyData.Stacks(layerPos).Stack], 'Size', [antalRaekker,4])
+montage([handles.MyData.Layers(layerPos).Stack], 'Size', [antalRaekker,4])
 
 
 % Kald displayROIPicture for at få det første echotime-billede vist
