@@ -1,4 +1,4 @@
-function handles = SaveResults(handles)
+function SaveResults(handles)
 
  if ~isfield(handles, 'MyData') || isempty(handles.MyData)
      msgbox('Der er ikke gennemførst nogen analyse')
