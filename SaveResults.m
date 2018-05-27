@@ -3,9 +3,27 @@ function SaveResults(handles)
 %Denne funktion gemmer en analyse i en txt-fil som brugeren kan finde frem
 % efter analysen er foretaget og programmet er lukket.
 
-if ~isfield(handles, 'MyData')
-    return;
-end
+ if ~isfield(handles, 'MyData') || isempty(handles.MyData)
+     msgbox('Der er ikke gennemførst nogen analyse')
+     return;
+ end
+ 
+%Brugeren vælger navn og sti til filen
+[file, path] = uiputfile('*.txt', 'Vælg filnavn', 'T2værdier_');
+fileName = fullfile(path, file);
+
+if fileName ~= 0
+ 
+%Opretter en fil med en identifier (fid)
+fid = fopen(fileName, 'w'); % 'w' specificerer write access' 
+
+ImLayer = (get(handles.SliderLayer, 'Value'));
+
+%Udskriver resultaterne 
+fprintf(fid, '*** Resultater for %s ***\r\n', file); 
+fprintf(fid, 'Patientens CPR-nummer: %s \r\n', handles.MyData.PatientID);
+fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', ImLayer);
+fprintf(fid, 'På dette snit %d er der indtegnet %d ROI. \r\n', (get(handles.SliderLayer, 'Value')), (length(handles.MyData.Layers(1).ROIS)));
 
 if ~isfield(handles.MyData, 'ROIS')
     msgbox('Der er ikke gennemførst nogen analyse.');
