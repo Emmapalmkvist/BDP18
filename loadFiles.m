@@ -23,6 +23,7 @@ if dirName ~= 0
     
     for ii = 1:length(files)
         currentFile = fullfile(dirName, files(ii).name);
+        
         iminfo = dicominfo(currentFile);
         % Tjekker om "SeriesDescription" tagget er 'T2'
         if strfind(iminfo.SeriesDescription, 'T2')
