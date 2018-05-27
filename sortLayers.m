@@ -33,9 +33,6 @@ layer = num2cell(layer);
 
 % Alle lagene løbes igennem
 for i = 1:length(uniqueValues)
-    % Alle billederne tilhørende nuværende snit gemmes
-    %handles.MyData.Layers(i).Images = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
-    
     % Sorter billederne i et snit efter stigende ekkotid ved at lave
     % structet om til et cell array og sorter på den ønskede kolonne
     dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
@@ -55,10 +52,12 @@ for i = 1:length(uniqueValues)
     
     % Alle billederne i et lag løbes igennem
     for ii = 1:numbOfPics
-        % Billedet hentes og normaliseres, for at gemmes i en stack
+        % Billedet hentes og normaliseres, for at gemmes i en stack til
+        % montage
         im = double(handles.MyData.Layers(i).Images(ii).Image);
         im = im/max(im(:));
-        handles.MyData.Stacks(i).Stack(:,:,1,ii) = im;
+        %handles.MyData.Stacks(i).Stack(:,:,1,ii) = im;
+        handles.MyData.Layers(i).Stack(:,:,1,ii) = im;
     end
     
 end
