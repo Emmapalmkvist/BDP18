@@ -32,6 +32,7 @@ for i = 1:echoPos
     echoPix(i).Pixels = intensity;
 
 end
+     
     % Gem indexes
     echoPix(1).Indexes = idx;
 end

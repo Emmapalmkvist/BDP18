@@ -6,13 +6,13 @@ function handles = loadFiles(handles)
 %   % Image: det indlæse DICOM billede
     % SliceLocation: snit nummer for det nuværende billede
     % EchoTime = ekkotiden for nuværende billedet
-    
-handles = clearGUI(handles);
+
    
 % Beder brugeren om at vælge mappe. Når mappen er valgt gemmes billederne
 % og den tilhørende udvalgte information. 
 dirName = uigetdir('PC', 'Vælg et bibliotek med Dicom filer');
 if dirName ~= 0
+    handles = clearGUI(handles);
     files = dir(fullfile(dirName, '*.dcm'));
     % Tæller nummeret af T2-billeder og nummeret af Localizer billeder
     CntT2 = 1;

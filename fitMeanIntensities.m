@@ -31,7 +31,7 @@ if nargin == 2
     axes(handles.axT2Graph)
     waitbar(3/3, wb)
     plot(f, x, y);
-    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Middelintensitet'); 
+    set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
     
 elseif nargin == 3

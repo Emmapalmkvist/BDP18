@@ -258,7 +258,6 @@ guidata(hObject, handles);
 handles = sortLayers(handles);
 guidata(hObject, handles);
 
-
 handles = initialiseSliders(handles);
 guidata(hObject, handles);
 handles = displayLayers(handles);
