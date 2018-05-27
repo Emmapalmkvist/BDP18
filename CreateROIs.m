@@ -1,4 +1,11 @@
 function [handles, mask] = CreateROIs(handles, y)
+
+%CreateROIs giver brugeren mulighed for at markere en eller flere ROIs et MR-billede. 
+% Hver gang der bliver tegnet en ROI på billedet indtaster brugeren et navn på ROI’en, 
+%som bliver opdateret i listboxen og som en label på billedet. 
+%Derudover bliver der hver gang der bliver tegnet en ROI gemt i handles med 
+%navnet, middelværdien, ekkotiden og positionen. 
+
 axes(handles.axDrawROI);            % Udvælgelse af axes der kan tegnes på.
 
 % Tjekker om handles indeholde MyData eller om MyData er tom og 
@@ -15,7 +22,6 @@ ROI = impoly;
 % Hvis ROI'en er blevet tegner (ESC er ikke trykket), så skal nedenstående
 % udføres
 if ~isempty(ROI)
-%ROI.Deletable = 1; 
 pos = getPosition(ROI);
 
 ImPos = get(handles.SliderLayer, 'Value');
@@ -34,30 +40,28 @@ if isfield(handles.MyData.Layers, 'ROIS')
         idx = 0; 
     end
         ROInavn = inputdlg('Indtast navn på ROI (vævstype)', 'Navn på ROI', 1, {'Hjerte'});
-        id = ROInavn;                                      % id genereres
-         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; % id sættes
+        id = ROInavn;                                      
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id; 
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Mask = mask;
-         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;  % Location sættes
+         handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos; 
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).MeanValue = y;
          handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
    
+        % Sørger for, at den senest tegnede ROI er markeret i listboksen
         oldList = get(handles.lbT2Ana, 'String');
         newList = strvcat(char(oldList), char(handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID));
-        
+        set(handles.lbT2Ana, 'String', newList);       
+        set(handles.lbT2Ana, 'Value', idx+1);
+
         text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');
         
-        set(handles.lbT2Ana, 'String', newList);       
-        % Sørg for, at den senest tegnede ROI er markeret i listboksen
-        set(handles.lbT2Ana, 'Value', idx+1);
-     
         handles = fitMeanIntensities(handles, idx+1, y);
-    
 else
+    % 1 for en linje tekst
     ROInavn = inputdlg('Indtast navn på ROI (vævstype)', 'Navn på ROI', 1, {'Hjerte'});
     
-    %ROInavn = msgbox(sprintf('Indtast navn på ROI(vævstype): %s' , ROIpaanavn));
-    id = ROInavn;          % id genereres                                      
-        handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id; % id sættes
+    id = ROInavn;                                    
+        handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Mask = mask;
         handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;         
         handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
@@ -68,9 +72,7 @@ else
         set(handles.GroupT2Ana, 'Visible', 'on');
         set(handles.GroupChoices, 'Visible', 'on');
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
-        handles = fitMeanIntensities(handles, 1);
-        
-      
+        handles = fitMeanIntensities(handles, 1);      
 end 
 
 end
