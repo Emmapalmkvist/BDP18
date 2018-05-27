@@ -7,14 +7,15 @@ function SaveResults(handles)
      msgbox('Der er ikke gennemførst nogen analyse')
      return;
  end
-%Brugeren vælger navn og sti til filen 
+ 
+%Brugeren vælger navn og sti til filen
 [file, path] = uiputfile('*.txt', 'Vælg filnavn', 'T2værdier_');
 fileName = fullfile(path, file);
 
 if fileName ~= 0
  
 %Opretter en fil med en identifier (fid)
-fid = fopen(fileName, 'w'); % 'w' specifies write access' 
+fid = fopen(fileName, 'w'); % 'w' specificerer write access' 
 
 ImLayer = (get(handles.SliderLayer, 'Value'));
 
