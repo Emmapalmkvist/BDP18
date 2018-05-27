@@ -17,7 +17,7 @@ end
 %imNorm = (im-min(im(:)))/(max(im(:))-min(im(:)));
 
 % Hent masken
-%mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
+mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
 
 % Fjern indhold udenfor ROI'en
 %imNorm(mask == 0) = 0;
@@ -46,7 +46,8 @@ h = subimage(currentIm);
 set(h, 'AlphaData', mask);
 % Vis indholdet inden i ROIen og farvelæg det med jet-colormappen (som er
 % flippet: rød = 1, blå = 0)
-imagesc(imNorm); colormap(flipud(jet));
+%imagesc(imNorm); colormap(flipud(jet));
+imagesc(im); colormap(flipud(jet));
 % Få den nuværende akseskalering
 axScale = caxis;
 hold on;
