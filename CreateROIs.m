@@ -66,7 +66,7 @@ else
         text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on')
         
         set(handles.GroupT2Ana, 'Visible', 'on');
-        set(handles.GruoupChoices, 'Visible', 'on');
+        set(handles.GroupChoices, 'Visible', 'on');
         set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
         handles = fitMeanIntensities(handles, 1);
         
