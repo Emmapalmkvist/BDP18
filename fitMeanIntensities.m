@@ -2,6 +2,8 @@ function handles = fitMeanIntensities(handles, ROIidx, meanValues)
 %FITMEANINTENSITIES Fitter middelintensiteterne og udregner T2* derfra
 %   Detailed explanation goes here
 
+%FITMEANINTENSITIES plotter middelintensiteterne og ekkotiderne og udregner T2* derfra
+
 wb = waitbar(0, 'Beregner T2*');
 % Find billedets snit (placeringen af slideren)
 layerPos = get(handles.SliderLayer, 'Value');
