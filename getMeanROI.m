@@ -1,11 +1,11 @@
 function  [y, echoPix] = getMeanROI(handles, mask)
-%GETMEANROI Summary of this function goes here
-%   Detailed explanation goes here
+
+%getMeanROI beregner middelintensiteten af en ROI. 
 
 echoPos = get(handles.SliderROIPicture, 'Max');
-
 layerPos = get(handles.SliderLayer, 'Value');
-%       Præallokering
+
+%Præallokering
 y = zeros(1, echoPos);
 % Klargør struct til pixels signalintensiteter for hver echotime
 echoPix = struct([]);
@@ -28,24 +28,11 @@ for i = 1:echoPos
     % Tag middelværdi af værdierne i ROI'en
     y(i) = mean(pic(idx));
     
-    % --- TEST
-    %echoPix(i).Pixels(:,1) = intensity(:);
-    %echoPix(i).Pixels(:,2) = idx(:);
-    
-    %echoPix(i).Intensity(:) = cell2struct(intensity);
-    %echoPix(i).Index = [idx];
-    % --- TEST SLUT
-    
-    
     % Intensiteterne gemmes
     echoPix(i).Pixels = intensity;
-    
-    %handles.MyData.Layers(ImPos).ROIS.ROI1.mean(i) = y(i);
-end
 
+end
     % Gem indexes
     echoPix(1).Indexes = idx;
-    %y = y;
-    %handles.MyData.Layers(ImPos).ROIS.ROI1.mean = y;
 end
 
