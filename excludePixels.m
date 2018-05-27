@@ -7,9 +7,10 @@ layerPos = get(handles.SliderLayer, 'Value');
 
 % Find placering af de værdier, som er større end eller lig den specificerede
 % værdi
-rmseLoc = find([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse] >= boundary);
+%rmseLoc = find([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse] >= boundary);
+rmseLoc = [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse] >= boundary;
 % Find deres tilhørende index i billede
-idx = handles.MyData.Layers(1).ROIS.ROI.EchoPix(1).Indexes;
+idx = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
 idx(rmseLoc) = [];
 
 % Hent T2-værdierne

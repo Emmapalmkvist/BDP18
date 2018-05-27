@@ -32,7 +32,10 @@ for i = 1:numbPix
    % Udregn T2*
    PixelT2(i) = -1/f.b;
    
-   waitbar(i/numbPix,wb);
+   if exist('wb','var')
+       waitbar(i/numbPix,wb);
+   end
+   
 end
 
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
@@ -48,7 +51,10 @@ set(handles.btnExcludePlus, 'enable', 'off');
 handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes);
 
 % Luk waitbaren
-close(wb)
+if exist('wb','var')
+    close(wb);
+end
+
 set(handles.figure1,'Pointer','arrow')
 end
 
