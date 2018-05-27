@@ -1,7 +1,7 @@
 function LoadSavedAnalysis(handles)
 
-ImPos = get(handles.SliderLayer, 'Value');
-if ~isempty(handles.MyData.Layers(ImPos))
+layerPos = get(handles.SliderLayer, 'Value');
+if ~isempty(handles.MyData.Layers(layerPos))
     choice = questdlg('Der er allerede en analyse i gang der vil blive overskrevet. Ønsker du at forsætte?', ...
     'Overskrivning af analyse', ...
     'Ja','Nej','Ja');
@@ -27,8 +27,8 @@ end
         set(wb,'WindowStyle', 'modal' );
       
                 
-        % Opretter en waitbar og sætter den til modal, hvilket sætter den
-        % som forreste vindue.
+        % Opretter en waitbar og sætter den til modal, hvilket sætter
+        % waitbar som forreste vindue.
     for ii = 1:length(handles.MyData)      
         waitbar(ii/length(handles.MyData), wb, sprintf('Indlæser valgte analyse...'))  
     end

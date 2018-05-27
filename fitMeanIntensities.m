@@ -1,4 +1,7 @@
 function handles = fitMeanIntensities(handles, ROIidx, meanValues)
+%FITMEANINTENSITIES Fitter middelintensiteterne og udregner T2* derfra
+%   Detailed explanation goes here
+
 %FITMEANINTENSITIES plotter middelintensiteterne og ekkotiderne og udregner T2* derfra
 
 wb = waitbar(0, 'Beregner T2*');
@@ -28,7 +31,7 @@ if nargin == 2
     axes(handles.axT2Graph)
     waitbar(3/3, wb)
     plot(f, x, y);
-    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Middelintensitet'); 
+    set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
     
 elseif nargin == 3

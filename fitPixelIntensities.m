@@ -47,8 +47,8 @@ handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2 = maxR2;
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE = min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse]);
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2 = min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare]);
 
-% Vis maks-værdi (for R2 som er valgt til default) ude i GUI samt deaktivér plus-knap
-set(handles.etExcludePixels, 'String', num2str(round(maxR2, 2)));
+% Vis maks-værdi ude i GUI samt deaktivér plus-knap
+set(handles.etExcludePixels, 'String', num2str(round(maxRMSE, 2)));
 set(handles.btnExcludePlus, 'enable', 'off');
 
 handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes);

@@ -18,10 +18,8 @@ antalRaekker = length(handles.MyData.Layers(layerPos).Images)/4;
 %snitposisionen, og så finder den alle billedern i det snit.
 montage([handles.MyData.Layers(layerPos).Stack], 'Size', [antalRaekker,4])
 
-
 % Kald displayROIPicture for at få det første echotime-billede vist
 handles = displayROIPicture(handles);
 
 
 end
-
