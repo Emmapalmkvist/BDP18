@@ -1,5 +1,8 @@
 function SaveResults(handles)
 
+%Denne funktion gemmer en analyse i en txt-fil som brugeren kan finde frem
+% efter analysen er foretaget og programmet er lukket. 
+
  if ~isfield(handles, 'MyData') || isempty(handles.MyData)
      msgbox('Der er ikke gennemførst nogen analyse')
      return;
@@ -9,26 +12,22 @@ function SaveResults(handles)
 fileName = fullfile(path, file);
 
 if fileName ~= 0
-
-%Danner filnavnen til filen
-%[filepath,name,extension] = fileparts(filename); 
-%resfilename = [name, '.txt']; 
-
+ 
 %Opretter en fil med en identifier (fid)
 fid = fopen(fileName, 'w'); % 'w' specifies write access' 
 
-ImPos = (get(handles.SliderLayer, 'Value'));
+ImLayer = (get(handles.SliderLayer, 'Value'));
 
 %Udskriver resultaterne 
 fprintf(fid, '*** Resultater for %s ***\r\n', file); 
 fprintf(fid, 'Patientens CPR-nummer: %s \r\n', handles.MyData.PatientID);
-fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', ImPos);
+fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', ImLayer);
 fprintf(fid, 'På dette snit %d er der indtegnet %d ROI. \r\n', (get(handles.SliderLayer, 'Value')), (length(handles.MyData.Layers(1).ROIS)));
 
-for i = 1:length(handles.MyData.Layers(ImPos).ROIS(:))
+for i = 1:length(handles.MyData.Layers(ImLayer).ROIS(:))
     
-    str = strjoin(handles.MyData.Layers(ImPos).ROIS(i).ROI.ROIID);
-    fprintf(fid, 'T2* værdien for ROI %s er %f \r\n', str, (handles.MyData.Layers(ImPos).ROIS(i).ROI.T2));
+    str = strjoin(handles.MyData.Layers(ImLayer).ROIS(i).ROI.ROIID);
+    fprintf(fid, 'T2* værdien for ROI %s er %f \r\n', str, (handles.MyData.Layers(ImLayer).ROIS(i).ROI.T2));
 
 end 
     % Notification til brugeren om filen er gemt
