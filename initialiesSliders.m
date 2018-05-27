@@ -14,7 +14,7 @@ function handles = initialiesSliders(handles)
  set(handles.SliderROIPicture, 'SliderStep', [1/length(handles.MyData.Layers(1).Images), 2/length(handles.MyData.Layers(1).Images)]);
 
 %Initialiserer sliderLayer 
-set(handles.Slid,erLayer, 'Value', 1);
+set(handles.SliderLayer, 'Value', 1);
 set(handles.SliderLayer, 'Min', 1);
 set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/(length(handles.MyData.Layers)-1), 2/(length(handles.MyData.Layers)-1)]);

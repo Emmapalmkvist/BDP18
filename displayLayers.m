@@ -18,19 +18,6 @@ antalRaekker = length(handles.MyData.Layers(layerPos).Images)/4;
 %snitposisionen, og så finder den alle billedern i det snit. 
 montage([handles.MyData.Stacks(layerPos).Stack], 'Size', [antalRaekker,4])
 
-% Alle billederne tilhørende nuværende snit gemmes
-    handles.MyData.Layers(layerPos).Images = cell2struct(dataCell, fNames, 1);
-    
-    numbOfPics = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==layerPos));
-    
-    % Alle billederne i et lag løbes igennem
-    for ii = 1:numbOfPics
-        % Billedet hentes og normaliseres, for at gemmes i en stack
-        im = double(handles.MyData.Layers(i).Images(ii).Image);
-        im = im/max(im(:));
-        handles.MyData.Stacks(i).Stack(:,:,1,ii) = im;
-    end
-
 % Kald displayROIPicture for at få det første echotime-billede vist
 handles = displayROIPicture(handles);
 
