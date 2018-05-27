@@ -1,23 +1,23 @@
 function handles = colormapPixels(handles, ROIID, layerPos, indexes)
 %COLORMAPPIXELS Farvelægger pixel'ene i en ROI ud fra T2*-værdierne
-%   Detailed explanation goes here
+
 
 % Lav et billede til T2-værdierne
-%im = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
 im = zeros(256, 256);
 
-%indexes = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
+
 
 for i = 1:length(indexes)
-    %im(idx(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
-    im(indexes(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
+    loc = find([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes] == indexes(i));
+    im(indexes(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(loc);
 end
 
 % Normaliser T2-værdierne til at ligge mellem 0-1
 %imNorm = (im-min(im(:)))/(max(im(:))-min(im(:)));
 
 % Hent masken
-mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
+%mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
+mask = logical(im);
 
 % Fjern indhold udenfor ROI'en
 %imNorm(mask == 0) = 0;
@@ -62,7 +62,6 @@ handles.MyData.HandleToCurrentROIImage = h;
 set(h, 'AlphaData', ~mask);
 
 displayROISonPicture(handles);
-
 
 end
 
