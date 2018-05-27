@@ -6,6 +6,6 @@ cla(handles.axT2Graph);
     set(handles.txtT2,'String','');
     (set(handles.SliderROIPicture, 'value', 1));
     layerPos = ceil(get(handles.SliderLayer, 'Value'));
-    set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', 1, length(handles.MyData.Layers(LayerPos).Images)));
+    set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', 1, length(handles.MyData.Layers(layerPos).Images)));
 end
 
