@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 27-May-2018 20:41:40
+% Last Modified by GUIDE v2.5 26-May-2018 20:14:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,7 +86,6 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 
  handles = displayROIPicture(handles);
  guidata(hObject, handles);
- 
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -135,20 +134,6 @@ function lbT2Ana_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from lbT2Ana
 handles.output = hObject;
 guidata(hObject, handles);
-
-layerPos = get(handles.SliderLayer, 'Value');
-ROIidx = get(handles.lbT2Ana, 'Value');
-
- % Plot den tilhørende analyse (tjekker først, at der er en)
- if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI, 'MeanValue')
-     x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
-     y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
-     f = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData;
-     axes(handles.axT2Graph);
-     plot(f, x, y);
-     T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
-     set(handles.txtT2, 'String', round(T2, 2));
- end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -220,7 +205,7 @@ guidata(hObject, handles);
 handles = sortLayers(handles);
 guidata(hObject, handles);
 
-handles = initialiseSliders(handles);
+handles = initialiesSliders(handles);
 guidata(hObject, handles);
 handles = displayLayers(handles);
 guidata(hObject, handles);
@@ -272,7 +257,6 @@ handles = loadFiles(handles);
 guidata(hObject, handles);
 handles = sortLayers(handles);
 guidata(hObject, handles);
-
 
 handles = initialiseSliders(handles);
 guidata(hObject, handles);
@@ -331,20 +315,15 @@ function btnExcludePlus_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Først findes max-værdien for typen af Goodness of Fit
+% Først findes max-værdien for RMSE
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
-if(strcmp(type,'rmse'))
-    max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
-elseif(strcmp(type, 'R^2'))
-    max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
-end
+max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
 
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-if value < round(max,2)
+if value < max
     value = value + 0.01;
     set(handles.etExcludePixels, 'String', num2str(value));
     set(handles.btnExcludeMinus, 'enable', 'on');
@@ -361,17 +340,12 @@ function btnExcludeMinus_Callback(hObject, eventdata, handles)
 % Først findes min-værdien for RMSE
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
-if(strcmp(type, 'rmse'))
-    min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE;
-elseif(strcmp(type, 'R^2'))
-    min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2;
-end
+min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE;
 
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-if value > round(min, 2)
+if value > min
     value = value - 0.01;
     set(handles.etExcludePixels, 'String', num2str(value));
     set(handles.btnExcludePlus, 'enable', 'on');
@@ -409,34 +383,5 @@ function btnExclude_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 ROIID = get(handles.lbT2Ana, 'Value');
 boundary = get(handles.etExcludePixels, 'String');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
-handles = excludePixels(handles, ROIID, type, str2double(boundary));
+handles = excludePixels(handles, ROIID, str2double(boundary));
 guidata(hObject, handles)
-
-
-% --- Executes on button press in rbR2.
-function rbR2_Callback(hObject, eventdata, handles)
-% hObject    handle to rbR2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rbR2
-layerPos = get(handles.SliderLayer, 'Value');
-ROIID = get(handles.lbT2Ana, 'Value');
-R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
-set(handles.etExcludePixels, 'String', num2str(round(R2,2)));
-set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med R^2\r\n mindre end:'));
-
-
-% --- Executes on button press in rbRMSE.
-function rbRMSE_Callback(hObject, eventdata, handles)
-% hObject    handle to rbRMSE (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of rbRMSE
-layerPos = get(handles.SliderLayer, 'Value');
-ROIID = get(handles.lbT2Ana, 'Value');
-RMSE = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
-set(handles.etExcludePixels, 'String', num2str(round(RMSE,2)));
-set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med RMSE\r\n større end:'));
