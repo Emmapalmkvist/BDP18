@@ -230,6 +230,7 @@ if isfield(handles, 'MyData')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
+        set(handles.etExcludePixels, 'enable', 'off');
         guidata(hObject, handles);
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
@@ -365,7 +366,7 @@ function rbR2_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of rbR2
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
+R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2;
 set(handles.etExcludePixels, 'String', num2str(round(R2,2)));
 set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med R^2\r\n mindre end:'));
 
