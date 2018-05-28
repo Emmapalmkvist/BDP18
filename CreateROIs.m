@@ -53,11 +53,11 @@ if ~isempty(ROI)
             handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
             
             set(handles.lbT2Ana, 'Enable', 'on');
-            % Sørger for, at den senest tegnede ROI er markeret i listboksen
-            set(handles.lbT2Ana, 'Value', idx+1);
             oldList = get(handles.lbT2Ana, 'String');
             newList = strvcat(char(oldList), char(handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).ROIID));
             set(handles.lbT2Ana, 'String', newList);
+            % Sørger for, at den senest tegnede ROI er markeret i listboksen
+            set(handles.lbT2Ana, 'Value', idx+1);
             
             
             text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');

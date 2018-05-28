@@ -1,4 +1,4 @@
-function handles = initialiesSliders(handles)
+function handles = initialiseSliders(handles)
 %InitialisererSliders - initialiserer sliderne til Layger og ROIPicture
 %   De parametre der indstilles er:
 %   - Value, som er 1 og dermed der hvor silderne starter. 

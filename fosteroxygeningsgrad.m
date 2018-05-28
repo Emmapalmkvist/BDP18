@@ -226,7 +226,8 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 
 % Tjek om der er tegnet ROIs
 if isfield(handles, 'MyData')
-    if isfield(handles.MyData.Layers, 'ROIS')
+    layerPos = get(handles.SliderLayer, 'Value');
+    if isfield(handles.MyData.Layers(layerPos), 'ROIS')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
@@ -253,7 +254,8 @@ function tbLoadAnalysis_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbLoadAnalysis (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-LoadSavedAnalysis(handles);
+handles = LoadSavedAnalysis(handles);
+guidata(hObject, handles);
 
 
 % --- Executes on button press in btnExcludePlus.
