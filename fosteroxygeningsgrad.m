@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 27-May-2018 20:41:40
+% Last Modified by GUIDE v2.5 28-May-2018 12:53:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,6 +86,7 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 
  handles = displayROIPicture(handles);
  guidata(hObject, handles);
+ 
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -153,16 +154,6 @@ ROIidx = get(handles.lbT2Ana, 'Value');
  end
 
 
-% --- Executes on selection change in listbox2.
-function listbox2_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox2
-
-
 % --- Executes during object creation, after setting all properties.
 function lbT2Ana_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to lbT2Ana (see GCBO)
@@ -174,72 +165,6 @@ function lbT2Ana_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
-% --- Executes on selection change in listbox3.
-function listbox3_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox3 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox3
-
-
-% --- Executes during object creation, after setting all properties.
-function listbox3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: listbox controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on button press in btnLoadImages.
-function btnLoadImages_Callback(hObject, eventdata, handles)
-% hObject    handle to btnLoadImages (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-handles = loadFiles(handles);
-guidata(hObject, handles);
-handles = sortLayers(handles);
-guidata(hObject, handles);
-
-handles = initialiesSliders(handles);
-guidata(hObject, handles);
-handles = displayLayers(handles);
-guidata(hObject, handles);
-
-handles = displayROIPicture(handles);
-guidata(hObject, handles);
-
-
-% --- Executes on button press in btnDrawROI.
-function btnDrawROI_Callback(hObject, eventdata, handles)
-% hObject    handle to btnDrawROI (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in btnSave.
-function btnSave_Callback(hObject, eventdata, handles)
-% hObject    handle to btnSave (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in pushbutton4.
-function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-
 
 
 % --------------------------------------------------------------------
@@ -276,7 +201,8 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-web('file:///E:/MATLAB/BDPEksamen/Help.html')
+msgbox('Hjælp', 'Hjælp')
+     return;
 
 % --------------------------------------------------------------------
 function tbSave_ClickedCallback(hObject, eventdata, handles)
@@ -298,11 +224,6 @@ if isfield(handles, 'MyData')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         guidata(hObject, handles);
-        set(handles.rbR2, 'enable', 'on');
-        set(handles.rbRMSE, 'enable', 'on');
-        set(handles.btnExcludeMinus, 'enable', 'on');
-        set(handles.btnExclude, 'enable', 'on');
-        
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
     end
@@ -352,6 +273,7 @@ value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
 
 value = value + plusValue;
+
 
 if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
