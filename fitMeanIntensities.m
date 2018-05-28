@@ -1,7 +1,4 @@
 function handles = fitMeanIntensities(handles, ROIidx, meanValues)
-%FITMEANINTENSITIES Fitter middelintensiteterne og udregner T2* derfra
-%   Detailed explanation goes here
-
 %FITMEANINTENSITIES plotter middelintensiteterne og ekkotiderne og udregner T2* derfra
 
 wb = waitbar(0, 'Beregner T2*');
@@ -16,11 +13,18 @@ elseif nargin == 3
     y = meanValues';
 end
 
-waitbar(1/3, wb);
+if isvalid(wb)
+    waitbar(1/3, wb);
+end
+
 set(handles.figure1,'Pointer','watch');
 % Fit x og y-værdierne
 f = fit(x, y, 'exp1');
-waitbar(2/3, wb);
+
+if isvalid(wb)
+    waitbar(2/3, wb);
+end
+
 T2 = -1/f.b;
 
 if nargin == 2
@@ -29,13 +33,20 @@ if nargin == 2
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 
     axes(handles.axT2Graph)
-    waitbar(3/3, wb)
+    
+    if isvalid(wb)
+        waitbar(3/3, wb)
+    end
+    
     plot(f, x, y);
     set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
-    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
+    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid [ms]');
     
 elseif nargin == 3
-    waitbar(3/3, wb);
+    if isvalid(wb)
+        waitbar(3/3, wb);
+    end
+    
     set(handles.txtT2Revideret, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
 end
