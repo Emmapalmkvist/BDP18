@@ -203,8 +203,7 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 web('file:///E:/MATLAB/BDPEksamen/Help.html')
-msgbox('Hjælp', 'Hjælp')
-     return;
+
 
      
 
