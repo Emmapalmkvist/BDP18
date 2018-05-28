@@ -16,7 +16,7 @@ function handles = excludePixels(handles, ROIID, type, boundary)
 %   OUTPUT:
 %   handles med nye værdier returneret fra funktionerne: 
 %       - colormapPixels
-%       - getMeanRoi
+%       - getMeanROI
 %       - fitMeanIntensities
 
 layerPos = get(handles.SliderLayer, 'Value');
