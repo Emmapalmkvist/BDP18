@@ -57,9 +57,6 @@ handles.output = hObject;
 axes(handles.axLogo)
 imshow('LogoAarhusUni.jpg');
 
-set(findall(handles.GroupT2Ana, '-property', 'enable'), 'enable', 'off');
-set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'off');
-
 % Update handles structure
 guidata(hObject, handles);
 
@@ -176,7 +173,6 @@ function tbDrawROI_OnCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 handles = CreateROIs(handles);
-set(findall(handles.GroupT2Ana, '-property', 'enable'), 'enable', 'on');
 guidata(hObject, handles);
 
 
@@ -198,8 +194,6 @@ guidata(hObject, handles);
 
 handles = displayROIPicture(handles);
 guidata(hObject, handles);
-
-
 
 
 % --------------------------------------------------------------------
@@ -229,7 +223,6 @@ if isfield(handles, 'MyData')
     if isfield(handles.MyData.Layers, 'ROIS')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
-        set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
         guidata(hObject, handles);
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
