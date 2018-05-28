@@ -1,6 +1,16 @@
 function SaveResults(handles)
 %SAVERESULTS Denne funktion gemmer en analyse i en txt-fil som brugeren kan finde frem
 % efter analysen er foretaget og programmet er lukket.
+%   Tjekker først og fremmest, om der er nogen data at gemme.
+%   Hvis der er, så bedes brugeren om at specificere en sti og filnavn
+%   Text-filen oprettes/åbnes og udvalgte data gemmes deri
+%
+%   INPUT:
+%   handles til elementer i gui
+%
+%   OUTPUT:
+%   Funktionen har ingen output argumenter, da den ikke ændrer på data
+%   eller generer ny data
 
 if ~isfield(handles, 'MyData') || isempty(handles.MyData)
     msgbox('Der er ikke gennemført nogen analyse')

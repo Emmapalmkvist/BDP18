@@ -1,6 +1,14 @@
 function handles = displayROIPicture(handles)
 %DISPLAYROIPICTURE viser hvert enkelt billede i det valgte snit.
-%Hivlket billede der er vist skifter, når brugeren flytter på slideren.
+%   Hvilket billede der er vist skifter, når brugeren flytter på slideren.
+%
+%   INPUT:
+%   handles til elementer i gui
+%
+%   OUTPUT:
+%   handles med nye værdier i MyData:
+%   - HandleToCurrentROIImage: et handle til det nuværende, viste billede.
+%     Bruges senere til oprettelse af maske for nye ROIs
     
  cla(handles.axDrawROI)
 

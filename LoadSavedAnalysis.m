@@ -1,5 +1,15 @@
 function handles = LoadSavedAnalysis(handles)
 %LOADSAVEDANALYSIS Indhenter .mat fil med en gemt analyse
+%   Tjekker først om der er eksisterende data til GUI'en
+%   Derefter bedes brugeren vælge den ønskede analyse, der skal hentes ind
+%   Filen læses ind og gemmes i handles, og oplysninger lægges ud på
+%   brugergrænsefladen
+%
+%   INPUT:
+%   handles: handle til elementer i gui
+%
+%   OUTPUT:
+%   handles med de indlæste data i MyData
 
 % Tjekker om der allerede er indhold hentet ind
 if isfield(handles, 'MyData')

@@ -1,4 +1,17 @@
 function SaveAnalysis(handles)
+%SAVEANALYSIS Gemmer en analyse som en .mat-fil, så den kan hentes ind og
+%genoptages senere
+%   Tjekker først og fremmest, om der er nogen data at gemme.
+%   Hvis der er, så bedes brugeren om at specificere en sti og filnavn
+%   Structet 'MyData' fra handles gemmes som en .mat-fil
+%
+%   INPUT:
+%   handles til elementer i gui
+%
+%   OUTPUT:
+%   Funktionen har ingen output argumenter, da den ikke ændrer på data
+%   eller generer ny data
+
  if ~isfield(handles, 'MyData') || isempty(handles.MyData)
      msgbox('Der er ikke startet på nogen analyse')
      return;

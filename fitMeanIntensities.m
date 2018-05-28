@@ -1,5 +1,25 @@
 function handles = fitMeanIntensities(handles, ROIidx, meanValues)
 %FITMEANINTENSITIES plotter middelintensiteterne og ekkotiderne og udregner T2* derfra
+%   Laver en x- og y-vektor til fit-funktionen. Afhængigt af antallet af
+%   inputargumenter, hentes middelværdi fra handles eller det 3.
+%   inputargument.
+%   Bruger x og y til at udføre eksponentielt fit og evt. plotte fittet.
+%   Outputtet fra fittet anvendes til at beregne T2*
+%
+%   INPUT:
+%   handles: handle til elementer i gui
+%   ROIidx: et id (placering i handles) på den ROI, der skal udregnes for
+%   meanValues: er 3. inputargument, hvis funktionen kaldes ved eksludering
+%   af pixels. Er middelværdierne for de pixels, der skal fittes for
+%
+%   OUTPUT:
+%   handles med de nye værdier i MyData.Layers.ROIS.ROI:
+%   2 inputargumenter
+%       - FitData: oplysninger om fittet. Anvendes til at plotte på ny
+%       - T2: den udregnede T2*-værdi
+%   3 inputargumenter:
+%       - RevideretT2: den udregnede, revidere T2*-værdi ud fra de restende
+%       pixels
 
 wb = waitbar(0, 'Beregner T2*');
 % Find billedets snit (placeringen af slideren)

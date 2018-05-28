@@ -1,10 +1,19 @@
-function [handles, mask] = CreateROIs(handles, y)
-
-%CreateROIs giver brugeren mulighed for at markere en eller flere ROIs et MR-billede.
-% Hver gang der bliver tegnet en ROI på billedet indtaster brugeren et navn på ROI’en,
-%som bliver opdateret i listboxen og som en label på billedet.
-%Derudover bliver der hver gang der bliver tegnet en ROI gemt i handles med
-%navnet, middelværdien, ekkotiden og positionen.
+function [handles, mask] = CreateROIs(handles)
+%CREATEROIS giver brugeren mulighed for at markere en eller flere ROIs på et MR-billede.
+%   Hver gang der bliver tegnet en ROI på billedet indtaster brugeren et navn på ROI’en,
+%   som bliver opdateret i listboxen og som en text på billedet.
+%   Derudover bliver hver ROI, der bliver tegnet, gemt i handles med
+%   navnet, middelværdien, ekkotiden og positionen.
+%
+%   INPUT:
+%   handles til elementer i gui
+%
+%   OUTPUT:
+%   handles med nye værdier i MyData.Layers.ROIS.ROI
+%   - ROIID: id (navnet) på ROI'en
+%   - Location: placering af ROI'en
+%   - MeanValue: middelintensiteterne for ROI'en
+%   - EchoPix: oplysninger til senere brug i funktionen 'excludePixels'
 
 axes(handles.axDrawROI);            % Udvælgelse af axes der kan tegnes på.
 

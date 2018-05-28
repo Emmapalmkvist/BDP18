@@ -1,11 +1,17 @@
 function handles = loadFiles(handles)
-
 %LOADFILES Henter filer fra en valgt mappe
-%   handles bruges til at gennem indlæste data i. Billederne gennem i
+%   handles bruges til at gennem indlæste data i. Billederne gemmes i
 %   MyData og opdeles i T2 og Loc efter deres DICOM information "SeriesDescription"
-%   % Image: det indlæse DICOM billede
-    % SliceLocation: snit nummer for det nuværende billede
-    % EchoTime = ekkotiden for nuværende billedet
+%   INPUT:
+%   handles: handle til elementer i gui
+%
+%   OUTPUT:
+%   handles med de indlæste data i MyData.T2 og MyData.Loc
+%   - Image: det indlæse DICOM billede
+%   - SliceLocation: snitlokation for det nuværende billede
+%   - EchoTime: ekkotiden for nuværende billedet
+    
+    
 
    
 % Beder brugeren om at vælge mappe. Når mappen er valgt gemmes billederne

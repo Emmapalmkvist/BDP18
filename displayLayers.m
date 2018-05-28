@@ -2,6 +2,12 @@ function handles = displayLayers(handles)
 %DISPLAYLAYERS viser alle billederne i et samlet snit for det nuværende snit
 %   Det snit der har den værdie slideren står på vises i axen.
 %   For at vise alle billederne er de samlet i et med montage
+%
+%   INPUT:
+%   handles til elementer i gui
+%
+%   OUTPUT:
+%   handles med nye værdier fra funktionen displayROIPicture
 
 %Henter slider værdien og runder værdien op til nærmeste heltal.
 layerPos = ceil(get(handles.SliderLayer, 'Value'));

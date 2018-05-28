@@ -1,5 +1,16 @@
 function  [y, echoPix] = getMeanROI(handles, mask)
 %GETMEANROI Beregner middelintensiteten af en ROI. 
+%
+%   INPUT:
+%   handles: handle til elementer i gui
+%   mask: maske for den ROI, som middelintensiteterne skal findes for
+%
+%   OUTPUT:
+%   y: Middelværdierne for ROIen
+%   echoPix:
+%   - echoPix.Pixels: hver pixels intensitet, som kan bruges senere til
+%     pixelvis analyse
+%   - echoPix.Indexes: index på pixels i ROI'en
 
 echoPos = get(handles.SliderROIPicture, 'Max');
 layerPos = get(handles.SliderLayer, 'Value');
