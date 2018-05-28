@@ -33,10 +33,12 @@ if fileName ~= 0
         waitbar(1/3, wb, sprintf('Indlæser analysens billeder...'))
     end
     
+    % Gør brugergrænsefladen klar
     set(handles.SliderLayer, 'Value', 1);
     set(handles.SliderROIPicture, 'Value', 1);
     handles = initialiseSliders(handles);
     displayLayers(handles);
+    
     if isvalid(wb)
         waitbar(2/3, wb, sprintf('Indlæser analysens billeder...'))
     end
