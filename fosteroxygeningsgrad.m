@@ -86,6 +86,7 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 
  handles = displayROIPicture(handles);
  guidata(hObject, handles);
+ 
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -134,6 +135,20 @@ function lbT2Ana_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from lbT2Ana
 handles.output = hObject;
 guidata(hObject, handles);
+
+layerPos = get(handles.SliderLayer, 'Value');
+ROIidx = get(handles.lbT2Ana, 'Value');
+
+ % Plot den tilhørende analyse (tjekker først, at der er en)
+ if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI, 'MeanValue')
+     x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
+     y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+     f = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData;
+     axes(handles.axT2Graph);
+     plot(f, x, y);
+     T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
+     set(handles.txtT2, 'String', round(T2, 2));
+ end
 
 
 % --- Executes during object creation, after setting all properties.
