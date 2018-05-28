@@ -1,6 +1,5 @@
 function  [y, echoPix] = getMeanROI(handles, mask)
-
-%getMeanROI beregner middelintensiteten af en ROI. 
+%GETMEANROI Beregner middelintensiteten af en ROI. 
 
 echoPos = get(handles.SliderROIPicture, 'Max');
 layerPos = get(handles.SliderLayer, 'Value');

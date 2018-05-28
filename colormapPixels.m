@@ -1,35 +1,21 @@
 function handles = colormapPixels(handles, ROIID, layerPos, indexes)
 %COLORMAPPIXELS Farvelægger pixel'ene i en ROI ud fra T2*-værdierne
-%   Detailed explanation goes here
 
 % Lav et billede til T2-værdierne
-%im = double(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask);
 im = zeros(256, 256);
 
-%indexes = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
-
 for i = 1:length(indexes)
-    %im(idx(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
-    im(indexes(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(i);
+    loc = find([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes] == indexes(i));
+    im(indexes(i)) = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(loc);
 end
 
-% Normaliser T2-værdierne til at ligge mellem 0-1
-%imNorm = (im-min(im(:)))/(max(im(:))-min(im(:)));
-
-% Hent masken
-mask = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.Mask;
-
-% Fjern indhold udenfor ROI'en
-%imNorm(mask == 0) = 0;
+% Lav en maske for de resterende pixels
+mask = logical(im);
 
 % Find det nuværende billede
 ImPos = ceil(get(handles.SliderLayer, 'Value'));
 ImPosROI = round(get(handles.SliderROIPicture, 'Value'));
 currentIm = double(handles.MyData.Layers(ImPos).Images(ImPosROI).Image);
-
-% Konverter billedet (bestående af pixelsværdier) til indexeret billede med
-% den grå colormap med N = 128
-%currentIm = gray2ind(double(currentIm)/max(currentIm(:)),128);
 
 % Normaliserer billedet
 currentIm = currentIm/max(currentIm(:));
@@ -62,7 +48,6 @@ handles.MyData.HandleToCurrentROIImage = h;
 set(h, 'AlphaData', ~mask);
 
 displayROISonPicture(handles);
-
 
 end
 
