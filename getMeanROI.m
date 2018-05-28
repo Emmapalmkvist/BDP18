@@ -14,18 +14,13 @@ for i = 1:echoPos
 
     % Find den del i image, som ROI'en indkranser
     im(mask == 0) = 0;
-
-    % Normalisér billedet
-    pic = im/max(im(:));
-
+   
     % Find indexes for punkterne i ROI'en
     idx = find(mask);
-    
     % Få pixel intensiteterne for denne echotid
-    intensity = pic(idx);
-    
+    intensity = im(idx);
     % Tag middelværdi af værdierne i ROI'en
-    y(i) = mean(pic(idx));
+    y(i) = mean(im(idx));
     
     % Intensiteterne gemmes
     echoPix(i).Pixels = intensity;

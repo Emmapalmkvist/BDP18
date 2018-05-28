@@ -146,6 +146,8 @@ ROIidx = get(handles.lbT2Ana, 'Value');
      f = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData;
      axes(handles.axT2Graph);
      plot(f, x, y);
+     set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
+     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
      T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
      set(handles.txtT2, 'String', round(T2, 2));
  end
@@ -162,95 +164,6 @@ function lbT2Ana_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
-% --- Executes on selection change in listbox2.
-function listbox2_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox2
-
-
-% --- Executes during object creation, after setting all properties.
-function listbox2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: listbox controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on selection change in listbox3.
-function listbox3_Callback(hObject, eventdata, handles)
-% hObject    handle to listbox3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns listbox3 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from listbox3
-
-
-% --- Executes during object creation, after setting all properties.
-function listbox3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to listbox3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: listbox controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on button press in btnLoadImages.
-function btnLoadImages_Callback(hObject, eventdata, handles)
-% hObject    handle to btnLoadImages (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-handles = loadFiles(handles);
-guidata(hObject, handles);
-handles = sortLayers(handles);
-guidata(hObject, handles);
-
-handles = initialiseSliders(handles);
-guidata(hObject, handles);
-handles = displayLayers(handles);
-guidata(hObject, handles);
-
-handles = displayROIPicture(handles);
-guidata(hObject, handles);
-
-
-% --- Executes on button press in btnDrawROI.
-function btnDrawROI_Callback(hObject, eventdata, handles)
-% hObject    handle to btnDrawROI (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in btnSave.
-function btnSave_Callback(hObject, eventdata, handles)
-% hObject    handle to btnSave (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in pushbutton4.
-function pushbutton4_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton4 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-
 
 
 % --------------------------------------------------------------------
@@ -304,9 +217,20 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbFitPixels (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-ROIID = get(handles.lbT2Ana, 'Value');
-handles = fitPixelIntensities(handles, ROIID);
-guidata(hObject, handles);
+
+% Tjek om der er tegnet ROIs
+if isfield(handles, 'MyData')
+    if isfield(handles.MyData.Layers, 'ROIS')
+        ROIID = get(handles.lbT2Ana, 'Value');
+        handles = fitPixelIntensities(handles, ROIID);
+        guidata(hObject, handles);
+    else
+        msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
+    end
+else
+    msgbox('Indlæs først billeder og vælg område at udføre analyse for.');
+end
+
 
 
 % --------------------------------------------------------------------
@@ -337,20 +261,27 @@ ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
 if(strcmp(type,'rmse'))
+    % Hent max-værdien og afrund den til kun 1 decimal
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
+    plusValue = 0.1;
 elseif(strcmp(type, 'R^2'))
+    % Hent max-værdien og afrund den til 2 decimaler
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
+    plusValue = 0.01;
 end
 
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-if value < round(max,2)
-    value = value + 0.01;
-    set(handles.etExcludePixels, 'String', num2str(value));
-    set(handles.btnExcludeMinus, 'enable', 'on');
-else
+
+value = value + plusValue;
+
+
+if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
+else
+    set(handles.etExcludePixels, 'String', num2str(value));
 end
+set(handles.btnExcludeMinus, 'enable', 'on');
 
 % --- Executes on button press in btnExcludeMinus.
 function btnExcludeMinus_Callback(hObject, eventdata, handles)
@@ -364,20 +295,25 @@ ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
 if(strcmp(type, 'rmse'))
-    min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE;
+    % Hent min-værdien og afrund den til kun 1 decimal
+    min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE,1);
+    minusValue = 0.1;
 elseif(strcmp(type, 'R^2'))
-    min = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2;
+    % Hent min-værdien og afrund den til 2 decimaler
+    min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2,2);
+    minusValue = 0.01;
 end
 
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-if value > round(min, 2)
-    value = value - 0.01;
-    set(handles.etExcludePixels, 'String', num2str(value));
-    set(handles.btnExcludePlus, 'enable', 'on');
-else
+value = value - minusValue;
+
+if (value-minusValue) <= min
     set(handles.btnExcludeMinus, 'enable', 'off');
+else
+    set(handles.etExcludePixels, 'String', num2str(value));
 end
+set(handles.btnExcludePlus, 'enable', 'on');
 
 
 function etExcludePixels_Callback(hObject, eventdata, handles)
@@ -438,5 +374,5 @@ function rbRMSE_Callback(hObject, eventdata, handles)
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
 RMSE = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
-set(handles.etExcludePixels, 'String', num2str(round(RMSE,2)));
+set(handles.etExcludePixels, 'String', num2str(round(RMSE,1)));
 set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med RMSE\r\n større end:'));

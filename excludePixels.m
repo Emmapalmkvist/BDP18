@@ -10,7 +10,7 @@ if(strcmp(type, 'rmse'))
     valueLoc = [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse] >= boundary;
 elseif(strcmp(type, 'R^2'))
     % Find placering af de værdier, som er større end eller lig den specificerede værdi
-    valueLoc = [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare] >= boundary;
+    valueLoc = [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare] <= boundary;
 end
 
 % Find placering af de værdier, som er større end eller lig den specificerede
