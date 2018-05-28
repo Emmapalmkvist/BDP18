@@ -8,25 +8,8 @@ function SaveResults(handles)
      return;
  end
  
-%Brugeren vælger navn og sti til filen
-[file, path] = uiputfile('*.txt', 'Vælg filnavn', 'T2værdier_');
-fileName = fullfile(path, file);
-
-if fileName ~= 0
- 
-%Opretter en fil med en identifier (fid)
-fid = fopen(fileName, 'w'); % 'w' specificerer write access' 
-
-ImLayer = (get(handles.SliderLayer, 'Value'));
-
-%Udskriver resultaterne 
-fprintf(fid, '*** Resultater for %s ***\r\n', file); 
-fprintf(fid, 'Patientens CPR-nummer: %s \r\n', handles.MyData.PatientID);
-fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', ImLayer);
-fprintf(fid, 'På dette snit %d er der indtegnet %d ROI. \r\n', (get(handles.SliderLayer, 'Value')), (length(handles.MyData.Layers(1).ROIS)));
-
-if ~isfield(handles.MyData, 'ROIS')
-    msgbox('Der er ikke gennemførst nogen analyse.');
+if ~isfield(handles.MyData.Layers, 'ROIS')
+    msgbox('Der er ikke gennemført nogen analyse.');
 else
     
     %Brugeren vælger navn og sti til filen
@@ -44,7 +27,7 @@ else
         fprintf(fid, '*** Resultater for %s ***\r\n', file);
         fprintf(fid, 'Patientens CPR-nummer: %s \r\n', handles.MyData.PatientID);
         
-        if isfield(handles.MyData.Layers, 'ROIS')
+        %if isfield(handles.MyData.Layers, 'ROIS')
             fprintf(fid, 'T2* værdierne tilhører snit %d. \r\n', layerPos);
             fprintf(fid, 'På dette snit %d er der indtegnet %d ROI. \r\n', (get(handles.SliderLayer, 'Value')), (length(handles.MyData.Layers(1).ROIS)));
             
@@ -52,12 +35,14 @@ else
                 
                 str = strjoin(handles.MyData.Layers(layerPos).ROIS(i).ROI.ROIID);
                 fprintf(fid, 'T2* værdien for ROI %s er %.2f \r\n', str, (handles.MyData.Layers(layerPos).ROIS(i).ROI.T2));
+                
+                if isfield(handles.MyData.Layers(layerPos).ROIS(i).ROI, 'RevideretT2')
                 fprintf(fid, 'Den revideret T2* værdi for ROI %s er %.2f \r\n', str, (handles.MyData.Layers(layerPos).ROIS(i).ROI.RevideretT2));
-            end
+                end 
+                end
         end
         % Notification til brugeren om filen er gemt
         msgbox(sprintf('Billedeanalyse er gemt i %s.' , fileName));
-    end
 end
 end
 
