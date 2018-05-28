@@ -111,6 +111,7 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 handles = displayLayers(handles);
 guidata(hObject, handles);
 handles = clearAnalysis(handles);
+guidata(hObject, handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -146,7 +147,7 @@ ROIidx = get(handles.lbT2Ana, 'Value');
      axes(handles.axT2Graph);
      plot(f, x, y);
      set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
-     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
+     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid [ms]');
      T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
      set(handles.txtT2, 'String', round(T2, 2));
  end
@@ -275,8 +276,7 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-msgbox('Hjælp', 'Hjælp')
-     return;
+web('file:///E:/MATLAB/BDPEksamen/Help.html')
 
 % --------------------------------------------------------------------
 function tbSave_ClickedCallback(hObject, eventdata, handles)
