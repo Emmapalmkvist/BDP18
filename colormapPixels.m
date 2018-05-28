@@ -47,6 +47,10 @@ handles.MyData.HandleToCurrentROIImage = h;
 % Sæt aksen til at vise det, som ligger uden for masken
 set(h, 'AlphaData', ~mask);
 
+% Fjern aksebenævnelser
+set(handles.axDrawROI, 'XTick', []);
+set(handles.axDrawROI, 'YTick', [])
+
 displayROISonPicture(handles);
 
 end
