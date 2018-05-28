@@ -230,6 +230,7 @@ if isfield(handles, 'MyData')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
+        set(handles.etExcludePixels, 'enable', 'off');
         guidata(hObject, handles);
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
@@ -266,22 +267,25 @@ layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
+% Tjek typen af Goodness of Fit
 if(strcmp(type,'rmse'))
     % Hent max-værdien og afrund den til kun 1 decimal
-    max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
+    max = ...
+     handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
     plusValue = 0.1;
 elseif(strcmp(type, 'R^2'))
     % Hent max-værdien og afrund den til 2 decimaler
-    max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
+    max = ...
+     handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
     plusValue = 0.01;
 end
 
+% Hent nuværende værdi og justér
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-
 value = value + plusValue;
 
-
+% Tjek om der må lægges mere til
 if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
 else
@@ -300,20 +304,25 @@ layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
 
+% Tjek type af Goodness of Fit
 if(strcmp(type, 'rmse'))
     % Hent min-værdien og afrund den til kun 1 decimal
-    min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE,1);
+    min = ...
+     round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE,1);
     minusValue = 0.1;
 elseif(strcmp(type, 'R^2'))
     % Hent min-værdien og afrund den til 2 decimaler
-    min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2,2);
+    min = ...
+     round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2,2);
     minusValue = 0.01;
 end
 
+% Hent nuværende værdi og justér
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
 value = value - minusValue;
 
+% Tjek om der må trækkes mere fra
 if (value-minusValue) <= min
     set(handles.btnExcludeMinus, 'enable', 'off');
 else
@@ -349,9 +358,13 @@ function btnExclude_Callback(hObject, eventdata, handles)
 % hObject    handle to btnExclude (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% Find værdierne for de argumenter, der skal sendes med funktionen til
+% ekskludering af pixels
 ROIID = get(handles.lbT2Ana, 'Value');
 boundary = get(handles.etExcludePixels, 'String');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
+% Kald funktionen med argumenterne
 handles = excludePixels(handles, ROIID, type, str2double(boundary));
 guidata(hObject, handles)
 
@@ -363,11 +376,15 @@ function rbR2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rbR2
+
+% Find ud af, hvad for en værdi, der skal vises i tekstfeltet
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
+R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2;
 set(handles.etExcludePixels, 'String', num2str(round(R2,2)));
-set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med R^2\r\n mindre end:'));
+% Justér beskrivelsesteksten
+set(handles.txtHeaderExcl, 'String', ...
+    sprintf('Ekskluder pixels med R^2\r\n mindre end:'));
 
 
 % --- Executes on button press in rbRMSE.
@@ -377,8 +394,12 @@ function rbRMSE_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rbRMSE
+
+% Find ud af, hvad for en værdi, der skal vises i tekstfeltet
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
 RMSE = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
 set(handles.etExcludePixels, 'String', num2str(round(RMSE,1)));
-set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med RMSE\r\n større end:'));
+% Justér beskrivelsesteksten
+set(handles.txtHeaderExcl, 'String', ...
+    sprintf('Ekskluder pixels med RMSE\r\n større end:'));
