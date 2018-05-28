@@ -28,7 +28,7 @@ end
 T2 = -1/f.b;
 
 if nargin == 2
-    set(handles.txtT2, 'String', round(T2, 2));
+    set(handles.txtT2, 'String', join([num2str(round(T2, 2)), ' ms']));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData = f;
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2 = T2;
 
@@ -47,7 +47,7 @@ elseif nargin == 3
         waitbar(3/3, wb);
     end
     
-    set(handles.txtT2Revideret, 'String', round(T2, 2));
+    set(handles.txtT2Revideret, 'String', join([num2str(round(T2, 2)), ' ms']));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
 end
 
