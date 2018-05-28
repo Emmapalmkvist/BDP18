@@ -58,10 +58,8 @@ if ~isempty(ROI)
             oldList = get(handles.lbT2Ana, 'String');
             newList = strvcat(char(oldList), char(handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).ROIID));
             set(handles.lbT2Ana, 'String', newList);
-            
-            
+           
             text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');
-            
             handles = fitMeanIntensities(handles, idx+1);
         else
             

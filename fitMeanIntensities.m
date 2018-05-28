@@ -18,6 +18,7 @@ if isvalid(wb)
 end
 
 set(handles.figure1,'Pointer','watch');
+
 % Fit x og y-værdierne
 f = fit(x, y, 'exp1');
 
