@@ -58,8 +58,8 @@ end
     
 % Vis min-værdi ude i GUI (default er valgt som R^2) samt aktiver plus-knap og deaktivér minus-knap
 set(handles.etExcludePixels, 'String', num2str(round(minR2, 2)));
-set(handles.btnExcludePlus, 'enable', 'on');
-set(handles.btnExcludeMinus, 'enable', 'off');
+%set(handles.btnExcludePlus, 'enable', 'on');
+%set(handles.btnExcludeMinus, 'enable', 'off');
 
 % Gem min og max for RMSE og R^2
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE = max([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse]);

@@ -298,6 +298,11 @@ if isfield(handles, 'MyData')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         guidata(hObject, handles);
+        set(handles.rbR2, 'enable', 'on');
+        set(handles.rbRMSE, 'enable', 'on');
+        set(handles.btnExcludeMinus, 'enable', 'on');
+        set(handles.btnExclude, 'enable', 'on');
+        
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
     end
@@ -347,7 +352,6 @@ value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
 
 value = value + plusValue;
-
 
 if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
