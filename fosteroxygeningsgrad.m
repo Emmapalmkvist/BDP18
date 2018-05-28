@@ -201,8 +201,17 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-msgbox('Hjælp', 'Hjælp')
-     return;
+
+% Find the folder location
+currentFolder = pwd;
+% Tjek styresystem
+if ispc
+    file = fullfile(currentFolder, '\Hjælp til programmet.pdf');
+else
+    file = fullfile(currentFolder, '/Hjælp til programmet.pdf');
+end
+
+open(file)
 
 % --------------------------------------------------------------------
 function tbSave_ClickedCallback(hObject, eventdata, handles)
