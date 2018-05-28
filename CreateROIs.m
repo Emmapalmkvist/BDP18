@@ -30,7 +30,7 @@ if ~isempty(ROI)
     if ~isempty(ROInavn)
         pos = getPosition(ROI);
         
-        ImPos = get(handles.SliderLayer, 'Value');
+        layerPos = get(handles.SliderLayer, 'Value');
         h_Im = handles.MyData.HandleToCurrentROIImage;
         
         % Lav maske ud fra ROI
@@ -40,22 +40,23 @@ if ~isempty(ROI)
         
         if isfield(handles.MyData.Layers, 'ROIS')
             
-            if ~isempty(handles.MyData.Layers(ImPos).ROIS)
-                idx = length(handles.MyData.Layers(ImPos).ROIS(:));
+            if ~isempty(handles.MyData.Layers(layerPos).ROIS)
+                idx = length(handles.MyData.Layers(layerPos).ROIS(:));
             else
                 idx = 0;
             end
             id = ROInavn;
-            handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID = id;
-            handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Mask = mask;
-            handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).Location = pos;
-            handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).MeanValue = y;
-            handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
+            handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).ROIID = id;
+            handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).Mask = mask;
+            handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).Location = pos;
+            handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).MeanValue = y;
+            handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
             
+            set(handles.lbT2Ana, 'Enable', 'on');
             % Sørger for, at den senest tegnede ROI er markeret i listboksen
             set(handles.lbT2Ana, 'Value', idx+1);
             oldList = get(handles.lbT2Ana, 'String');
-            newList = strvcat(char(oldList), char(handles.MyData.Layers(ImPos).ROIS(idx+1).ROI(1).ROIID));
+            newList = strvcat(char(oldList), char(handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).ROIID));
             set(handles.lbT2Ana, 'String', newList);
             
             
@@ -65,17 +66,17 @@ if ~isempty(ROI)
         else
             
             id = ROInavn;
-            handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID = id;
-            handles.MyData.Layers(ImPos).ROIS.ROI(1).Mask = mask;
-            handles.MyData.Layers(ImPos).ROIS.ROI(1).Location = pos;
-            handles.MyData.Layers(ImPos).ROIS.ROI(1).MeanValue = y;
-            handles.MyData.Layers(ImPos).ROIS.ROI(1).EchoPix = echoPix;
+            handles.MyData.Layers(layerPos).ROIS.ROI(1).ROIID = id;
+            handles.MyData.Layers(layerPos).ROIS.ROI(1).Mask = mask;
+            handles.MyData.Layers(layerPos).ROIS.ROI(1).Location = pos;
+            handles.MyData.Layers(layerPos).ROIS.ROI(1).MeanValue = y;
+            handles.MyData.Layers(layerPos).ROIS.ROI(1).EchoPix = echoPix;
             
             text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on')
             
             set(handles.GroupT2Ana, 'Visible', 'on');
             set(handles.GroupChoices, 'Visible', 'on');
-            set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(ImPos).ROIS.ROI(1).ROIID)});
+            set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(layerPos).ROIS.ROI(1).ROIID)});
             handles = fitMeanIntensities(handles, 1);
         end
     else

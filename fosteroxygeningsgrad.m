@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 27-May-2018 20:41:40
+% Last Modified by GUIDE v2.5 28-May-2018 12:53:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -187,7 +187,6 @@ guidata(hObject, handles);
 handles = sortLayers(handles);
 guidata(hObject, handles);
 
-
 handles = initialiseSliders(handles);
 guidata(hObject, handles);
 handles = displayLayers(handles);
@@ -202,10 +201,8 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbQuestion (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-web('file:///E:/MATLAB/BDPEksamen/Help.html')
-
-
-     
+msgbox('Hjælp', 'Hjælp')
+     return;
 
 % --------------------------------------------------------------------
 function tbSave_ClickedCallback(hObject, eventdata, handles)
@@ -233,7 +230,6 @@ if isfield(handles, 'MyData')
 else
     msgbox('Indlæs først billeder og vælg område at udføre analyse for.');
 end
-
 
 
 % --------------------------------------------------------------------
