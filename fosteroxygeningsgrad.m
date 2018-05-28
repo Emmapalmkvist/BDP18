@@ -112,6 +112,7 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 handles = displayLayers(handles);
 guidata(hObject, handles);
 handles = clearAnalysis(handles);
+guidata(hObject, handles);
 
 
 % --- Executes during object creation, after setting all properties.
@@ -147,7 +148,7 @@ ROIidx = get(handles.lbT2Ana, 'Value');
      axes(handles.axT2Graph);
      plot(f, x, y);
      set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
-     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid');
+     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid [ms]');
      T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
      set(handles.txtT2, 'String', round(T2, 2));
  end

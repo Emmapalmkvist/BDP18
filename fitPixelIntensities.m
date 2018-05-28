@@ -70,7 +70,7 @@ handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2 = minR2;
 % Farvelæg
 handles = colormapPixels(handles, ROIID, layerPos, handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes);
 
-% Luk waitbaren
+% Luk waitbaren (hvis den stadig er åben)
 if isvalid(wb)
     close(wb);
 end
