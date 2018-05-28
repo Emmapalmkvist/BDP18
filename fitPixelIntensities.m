@@ -32,32 +32,25 @@ numbPix = ...
 echoTimes = get(handles.SliderROIPicture, 'Max');
 
 % Præallokér til at indeholde T2-værdierne for hver enkel pixel
-PixelT2 = zeros(1, numbPix);
-
+PixelT2 = zeros(1, numbPix);´
 for i = 1:numbPix
     % Præallokér til at indeholde pixelværdi pr. echotid
     Pix = zeros(1, echoTimes);
-    
    parfor ii = 1:echoTimes
        Pix(ii) = ...
            handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(ii).Pixels(i);
    end
-   % Vend vektorerne til fit-metoden og fit (få både fit og goodness of
-   % fit)
+   %Vend vektorerne til fit-metoden og fit (få både fit og goodness of fit)
    Pix = Pix';
    Echo = ([handles.MyData.Layers(layerPos).Images.EchoTime])';
    [f, gof] = fit(Echo, Pix, 'exp1');
    handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(i) = gof;
-   
    % Udregn T2*
    PixelT2(i) = -1/f.b;
-   
    if isvalid(wb)
        waitbar(i/numbPix,wb);
    end
-   
 end
-
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
 
 % Find minimum værdien for R^2
