@@ -17,6 +17,6 @@ function SaveAnalysis(handles)
     set(handles.figure1,'Pointer','arrow'); % Ændrer cursor til arrow
     
     % Notification til brugeren om filen er gemt
-    msgbox(sprintf('Billedeanalyse er gemt i %s' , fileName), 'WindowStyle', 'modal');
+    msgbox(sprintf('Billedeanalyse er gemt i %s' , fileName));
 end
 end
