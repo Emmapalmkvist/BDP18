@@ -202,7 +202,7 @@ function tbQuestion_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Find the folder location
+% Find den nuværende folder (hvor .m filen er placeret)
 currentFolder = pwd;
 % Tjek styresystem
 if ispc
@@ -211,6 +211,7 @@ else
     file = fullfile(currentFolder, '/Hjælp til programmet.pdf');
 end
 
+% Åbn pdf'en med hjælp til programmet
 open(file)
 
 % --------------------------------------------------------------------
