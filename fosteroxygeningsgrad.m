@@ -284,12 +284,12 @@ elseif(strcmp(type, 'R^2'))
     plusValue = 0.01;
 end
 
+% Find nuværende værdi og foretag addition
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
-
 value = value + plusValue;
 
-
+% Tjek værdi ift. største værdi
 if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
 else
@@ -318,10 +318,12 @@ elseif(strcmp(type, 'R^2'))
     minusValue = 0.01;
 end
 
+% Find nuværende værdi og foretag subtraktion
 value = get(handles.etExcludePixels, 'String');
 value = str2double(value);
 value = value - minusValue;
 
+% Tjek værdi ift. mindste værdi
 if (value-minusValue) <= min
     set(handles.btnExcludeMinus, 'enable', 'off');
 else
@@ -357,9 +359,12 @@ function btnExclude_Callback(hObject, eventdata, handles)
 % hObject    handle to btnExclude (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% Find den valgte ROI, samt Goodness of Fit-type og værdi
 ROIID = get(handles.lbT2Ana, 'Value');
 boundary = get(handles.etExcludePixels, 'String');
 type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
+% Foretag eksludering af pixels
 handles = excludePixels(handles, ROIID, type, str2double(boundary));
 guidata(hObject, handles)
 
@@ -371,11 +376,16 @@ function rbR2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rbR2
+
+% Find nuværende snit og ROI
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
+% Indstil til min-værdi
+R2 = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2;
 set(handles.etExcludePixels, 'String', num2str(round(R2,2)));
 set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med R^2\r\n mindre end:'));
+set(handles.btnExcludeMinus, 'enable', 'off');
+set(handles.btnExcludePlus, 'enable', 'on');
 
 
 % --- Executes on button press in rbRMSE.
@@ -385,8 +395,13 @@ function rbRMSE_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of rbRMSE
+
+% Find nuværende snit og ROI
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
+% Indstil til max-værdi
 RMSE = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
 set(handles.etExcludePixels, 'String', num2str(round(RMSE,1)));
 set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med RMSE\r\n større end:'));
+set(handles.btnExcludeMinus, 'enable', 'on');
+set(handles.btnExcludePlus, 'enable', 'off');
