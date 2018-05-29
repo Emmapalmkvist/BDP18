@@ -22,7 +22,7 @@ function varargout = fosteroxygeningsgrad(varargin)
 
 % Edit the above text to modify the response to help fosteroxygeningsgrad
 
-% Last Modified by GUIDE v2.5 28-May-2018 12:53:35
+% Last Modified by GUIDE v2.5 29-May-2018 11:15:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -452,3 +452,29 @@ set(handles.etExcludePixels, 'String', num2str(round(RMSE,1)));
 set(handles.txtHeaderExcl, 'String', sprintf('Ekskluder pixels med RMSE\r\n større end:'));
 set(handles.btnExcludeMinus, 'enable', 'on');
 set(handles.btnExcludePlus, 'enable', 'off');
+
+
+
+
+% --------------------------------------------------------------------
+function tbColorbar_OnCallback(hObject, eventdata, handles)
+% hObject    handle to tbColorbar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Må kaldes hvis der er indlæst data
+if isfield(handles, 'MyData')
+    axes(handles.axDrawROI)
+    colorbar()
+    cb = colorbar;
+    cb.Label.String = 'T2*-værdi';
+end
+
+
+% --------------------------------------------------------------------
+function tbColorbar_OffCallback(hObject, eventdata, handles)
+% hObject    handle to tbColorbar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+axes(handles.axDrawROI)
+colorbar('off')
