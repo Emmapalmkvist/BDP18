@@ -22,13 +22,13 @@ function handles = excludePixels(handles, ROIID, type, boundary)
 layerPos = get(handles.SliderLayer, 'Value');
 
 % Tjek hvilken type værdi der er valgt at sortere efter: RMSE eller R^2
-if(strcmp(type, 'rmse'))
+if(strcmp(type, 'rbRMSE'))
     % Find placering af de værdier, som er større end eller lig den
     % specificerede værdi
     valueLoc = ...
      [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rmse]...
      >= boundary;
-elseif(strcmp(type, 'R^2'))
+elseif(strcmp(type, 'rbR2'))
     % Find placering af de værdier, som er større end eller lig den
     % specificerede værdi
     valueLoc = ...

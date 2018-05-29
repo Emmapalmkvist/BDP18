@@ -238,6 +238,7 @@ if isfield(handles, 'MyData')
         ROIID = get(handles.lbT2Ana, 'Value');
         handles = fitPixelIntensities(handles, ROIID);
         set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
+        set(handles.btnExcludeMinus, 'enable', 'off');
         guidata(hObject, handles);
     else
         msgbox('Der er ingen ROI at udføre pixelvis analyse for.');
@@ -272,13 +273,13 @@ function btnExcludePlus_Callback(hObject, eventdata, handles)
 % Først findes max-værdien for typen af Goodness of Fit
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
+type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag')
 
-if(strcmp(type,'rmse'))
+if(strcmp(type, 'rbRMSE'))
     % Hent max-værdien og afrund den til kun 1 decimal
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
     plusValue = 0.1;
-elseif(strcmp(type, 'R^2'))
+elseif(strcmp(type, 'rbR2'))
     % Hent max-værdien og afrund den til 2 decimaler
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
     plusValue = 0.01;
@@ -306,13 +307,13 @@ function btnExcludeMinus_Callback(hObject, eventdata, handles)
 % Først findes min-værdien for RMSE
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
+type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag')
 
-if(strcmp(type, 'rmse'))
+if(strcmp(type, 'rbRMSE'))
     % Hent min-værdien og afrund den til kun 1 decimal
     min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE,1);
     minusValue = 0.1;
-elseif(strcmp(type, 'R^2'))
+elseif(strcmp(type, 'rbR2'))
     % Hent min-værdien og afrund den til 2 decimaler
     min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2,2);
     minusValue = 0.01;
@@ -363,7 +364,7 @@ function btnExclude_Callback(hObject, eventdata, handles)
 % Find den valgte ROI, samt Goodness of Fit-type og værdi
 ROIID = get(handles.lbT2Ana, 'Value');
 boundary = get(handles.etExcludePixels, 'String');
-type = get(get(handles.btnGrpExclude,'SelectedObject'), 'String');
+type = get(get(handles.btnGrpExclude,'SelectedObject'), 'Tag');
 % Foretag eksludering af pixels
 handles = excludePixels(handles, ROIID, type, str2double(boundary));
 guidata(hObject, handles)
