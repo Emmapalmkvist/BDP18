@@ -85,6 +85,9 @@ if ~isempty(ROI)
             
             
             text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on');
+            
+            %Clearer eksisterende analyse
+            handles = clearAnalysis(handles);
             %Kalder funktionen fitMeanIntensities 
             handles = fitMeanIntensities(handles, idx+1);
         else

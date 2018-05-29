@@ -27,11 +27,11 @@ function varargout = fosteroxygeningsgrad(varargin)
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
-                   'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @fosteroxygeningsgrad_OpeningFcn, ...
-                   'gui_OutputFcn',  @fosteroxygeningsgrad_OutputFcn, ...
-                   'gui_LayoutFcn',  [] , ...
-                   'gui_Callback',   []);
+    'gui_Singleton',  gui_Singleton, ...
+    'gui_OpeningFcn', @fosteroxygeningsgrad_OpeningFcn, ...
+    'gui_OutputFcn',  @fosteroxygeningsgrad_OutputFcn, ...
+    'gui_LayoutFcn',  [] , ...
+    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
 end
@@ -68,7 +68,7 @@ guidata(hObject, handles);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = fosteroxygeningsgrad_OutputFcn(hObject, eventdata, handles) 
+function varargout = fosteroxygeningsgrad_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -87,9 +87,9 @@ function SliderROIPicture_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
- handles = displayROIPicture(handles);
- guidata(hObject, handles);
- 
+handles = displayROIPicture(handles);
+guidata(hObject, handles);
+
 
 % --- Executes during object creation, after setting all properties.
 function SliderROIPicture_CreateFcn(hObject, eventdata, handles)
@@ -114,7 +114,9 @@ function SliderLayer_Callback(hObject, eventdata, handles)
 
 handles = displayLayers(handles);
 guidata(hObject, handles);
-handles = clearAnalysis(handles);
+% Inputargument 2 gives med for at indikere, at der skal cleares for et
+% skift i snit
+handles = clearAnalysis(handles, true);
 guidata(hObject, handles);
 
 
@@ -143,18 +145,59 @@ guidata(hObject, handles);
 layerPos = get(handles.SliderLayer, 'Value');
 ROIidx = get(handles.lbT2Ana, 'Value');
 
- % Plot den tilhørende analyse (tjekker først, at der er en)
- if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI, 'MeanValue')
-     x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
-     y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
-     f = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData;
-     axes(handles.axT2Graph);
-     plot(f, x, y);
-     set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet'); 
-     set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid [ms]');
-     T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
-     set(handles.txtT2, 'String', round(T2, 2));
- end
+% Plot den tilhørende analyse (tjekker først, at der er en)
+if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI, 'MeanValue')
+    x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
+    y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+    f = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.FitData;
+    axes(handles.axT2Graph);
+    plot(f, x, y);
+    set(get(handles.axT2Graph, 'ylabel'), 'string', 'Middelintensitet');
+    set(get(handles.axT2Graph, 'xlabel'), 'string', 'Ekkotid [ms]');
+    T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.T2;
+    set(handles.txtT2, 'String', round(T2, 2));
+    
+    % Tjekker, om der er lavet pixelvis fitning
+    if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI(1).EchoPix, 'T2')
+        % Find minimum værdien for R^2
+        minR2 = ...
+            min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare]);
+        minR2 = num2str(round(minR2, 3));
+        % Lav vektor af værdier, som vil medføre, at der rundes op
+        highValues = ['5'; '6'; '7'; '8'; '9'];
+        % Se, om den sidste værdi er lig et af ovenstående tal
+        isHighValue = (minR2(end) == highValues(:));
+        % Nedenstående if er for at der bliver rundet ned til 2 decimaler for
+        % min-værdien af R^2
+        if (~isempty(isHighValue(isHighValue)))
+            minR2(end) = '4';
+            minR2 = str2double(minR2);
+        else
+            minR2 = str2double(minR2);
+        end
+        % Vis min-værdi ude i GUI (default er valgt som R^2) samt aktivér
+        % plus-knap og deaktivér minus-knap
+        set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'on');
+        set(handles.etExcludePixels, 'enable', 'off');
+        set(handles.btnGrpExclude, 'SelectedObject', handles.rbR2);
+        set(handles.etExcludePixels, 'String', num2str(round(minR2, 2)));
+        set(handles.btnExcludePlus, 'enable', 'on');
+        set(handles.btnExcludeMinus, 'enable', 'off');
+        
+        % Tjekker om der er udregnet en revideret T2*
+        if isfield(handles.MyData.Layers(layerPos).ROIS(numbROIs).ROI(1), 'RevideretT2')
+            T2 = handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2;
+            set(handles.txtT2Revideret, 'String', round(T2, 2));
+        else
+            set(handles.txtT2Revideret,'String','');
+        end
+    else
+        set(handles.txtT2Revideret,'String','');
+        set(handles.etExcludePixels, 'String', '-');
+        set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'off');
+    end
+    
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -261,7 +304,8 @@ function tbLoadAnalysis_ClickedCallback(hObject, eventdata, handles)
 % hObject    handle to tbLoadAnalysis (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-LoadSavedAnalysis(handles);
+handles = LoadSavedAnalysis(handles);
+guidata(hObject, handles);
 
 
 % --- Executes on button press in btnExcludePlus.
@@ -293,7 +337,8 @@ value = value + plusValue;
 % Tjek værdi ift. største værdi
 if (value+plusValue) >= max
     set(handles.btnExcludePlus, 'enable', 'off');
-else
+end
+if value <= max
     set(handles.etExcludePixels, 'String', num2str(value));
 end
 set(handles.btnExcludeMinus, 'enable', 'on');
@@ -327,7 +372,8 @@ value = value - minusValue;
 % Tjek værdi ift. mindste værdi
 if (value-minusValue) <= min
     set(handles.btnExcludeMinus, 'enable', 'off');
-else
+end
+if value >= min
     set(handles.etExcludePixels, 'String', num2str(value));
 end
 set(handles.btnExcludePlus, 'enable', 'on');

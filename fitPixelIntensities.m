@@ -78,7 +78,7 @@ else
     minR2 = str2double(minR2);
 end
     
-% Vis min-værdi ude i GUI (default er valgt som R^2) samt samt aktivér
+% Vis min-værdi ude i GUI (default er valgt som R^2) samt aktivér
 % plus-knap og deaktivér minus-knap
 set(handles.btnGrpExclude, 'SelectedObject', handles.rbR2);
 set(handles.etExcludePixels, 'String', num2str(round(minR2, 2)));
