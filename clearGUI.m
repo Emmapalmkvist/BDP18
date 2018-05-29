@@ -1,6 +1,6 @@
 function handles = clearGUI(handles)
-%CLEARGUI - clear GUI når nyt data indlæses. 
-%Derudover clear den alt det data der ligger i 'handles.MyData'
+%CLEARGUI clearer GUI, når nyt data indlæses. 
+% Derudover clear den alt det data der ligger i 'handles.MyData'
 
 
 %Tjekker om MyData eksister, hvis den gør det skal den slette indeholdet på

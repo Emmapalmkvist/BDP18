@@ -1,10 +1,10 @@
 function handles = sortLayers(handles)
-%SORTLAYERS Sorts the T2* images into layers
+%SORTLAYERS Sorterer T2* billederne i snit
 %   Finder først de unikke værdier i T2-billedernes SliceLocation. Således
 %   opdeles der i lag (T2.LayerNo).
 %   Gemmer antallet af lag i handles (NumbOfLayers)
 %   For hvert lag gemmes de tilhørende billeder i handles (Layers.Images)
-%   Hvert billede i et lag klargøres til montage (Stacks.Stack)
+%   Hvert billede i et snit klargøres til montage (Layers.Stack)
 %
 %   INPUT:
 %   handles til elementer i gui
@@ -17,8 +17,8 @@ function handles = sortLayers(handles)
 %       - Layers: et struct med et struct i hver række
 %           - Layers.Images: et struct indeholdende billederne i det
 %             respektive lag
-%       - Stacks: et struct med 4-D i hver række
-%           - Stacks.Stack: en stak af billederne, klargjort til montage
+%           - Layers.Stack: en stak af billederne i snittet - klargjort til
+%             montage
 
 % Bruger "unique" til at finde de unikke værdier i SliceLocation
 [uniqueValues, ~, layer] = unique([handles.MyData.T2.SliceLocation]);

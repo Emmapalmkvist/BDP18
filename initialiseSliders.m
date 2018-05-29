@@ -1,11 +1,16 @@
-function handles = initialiesSliders(handles)
-%InitialisererSliders - initialiserer sliderne til Layger og ROIPicture
+function handles = initialiseSliders(handles)
+%INITIALISESLIDERS Initialiserer sliderne til Layer og ROIPicture
 %   De parametre der indstilles er:
 %   - Value, som er 1 og dermed der hvor silderne starter. 
 %   - Minimuns-værdien hvilket er 1 da det er mindste værdi billederne har.
 %   - Maksimums-værdien hvilket er antallet af snit i Layer og antallet af
 %   billeder i et snit i ROIPicture.
 %   - SliderStep, fortæller hvor langt slideren skal flyttes af gangen. 
+%   INPUT:
+%   handles: handle til elementer i gui
+%
+%   OUTPUT:
+%   handles med indstillede værdier
 
 %Initialiserer sliderROIPicture
  set(handles.SliderROIPicture, 'Value', 1);
