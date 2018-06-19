@@ -13,7 +13,9 @@ function handles = displayROIPicture(handles)
  cla(handles.axDrawROI)
 
  layerPos = ceil(get(handles.SliderLayer, 'Value'));
- echoPos = round(get(handles.SliderROIPicture, 'Value'));
+ %Udkommenteret efter aflevering: echoPos = round(get(handles.SliderROIPicture, 'Value'));
+ %Ændret til ceil
+ echoPos = ceil(get(handles.SliderROIPicture, 'Value'));
  set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', echoPos,...
      length(handles.MyData.Layers(layerPos).Images))); 
  axes(handles.axDrawROI)

@@ -23,5 +23,6 @@ set(handles.SliderLayer, 'Value', 1);
 set(handles.SliderLayer, 'Min', 1);
 set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/(length(handles.MyData.Layers)-1), 2/(length(handles.MyData.Layers)-1)]);
+
 end
 
