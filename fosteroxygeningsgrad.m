@@ -317,7 +317,7 @@ function btnExcludePlus_Callback(hObject, eventdata, handles)
 % Først findes max-værdien for typen af Goodness of Fit
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag')
+type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag');
 
 if(strcmp(type, 'rbRMSE'))
     % Hent max-værdien og afrund den til kun 1 decimal
