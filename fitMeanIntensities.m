@@ -25,10 +25,17 @@ wb = waitbar(0, 'Beregner T2*');
 % Find billedets snit (placeringen af slideren)
 layerPos = get(handles.SliderLayer, 'Value');
 
-% Lav x-vektor
+% Lav x-vektor, ud fra ekkotider
 x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
-if nargin == 2
+
+%Lav y-vektor, du fra middelværdier
+% Hvis der er to input vil det være handles og ROIidx. MeanValue for hele
+% ROI er gemt i handles
+if nargin == 2 
     y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+%Det trejde input er meanValues fra excludePixels dvs. middelværdien af de
+%tilbageværende pixels. 
+%Den vil være der når man har været inde og fravælge pixels. 
 elseif nargin == 3
     y = meanValues';
 end
@@ -37,6 +44,7 @@ if isvalid(wb)
     waitbar(1/3, wb);
 end
 
+%Mus bliver til ur
 set(handles.figure1,'Pointer','watch');
 
 % Fit x og y-værdierne
@@ -46,6 +54,7 @@ if isvalid(wb)
     waitbar(2/3, wb);
 end
 
+%kommer fra omskrivning af opgivet formel
 T2 = -1/f.b;
 
 if nargin == 2
@@ -70,9 +79,12 @@ elseif nargin == 3
     
     set(handles.txtT2Revideret, 'String', round(T2, 2));
     handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.RevideretT2 = T2;
+    
+    % Dvs. hvis man ikke får vist den fittet kurve ved revideret T2-værdi
 end
 
 close(wb);
+%Mus tilbage til pil 
 set(handles.figure1,'Pointer','arrow');
 end
 

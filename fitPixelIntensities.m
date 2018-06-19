@@ -21,6 +21,7 @@ function handles = fitPixelIntensities(handles, ROIID)
 %       - MinR2: Den laveste R^2-værdi for pixelene i ROI'en
 
 wb = waitbar(0, 'Beregner pixelvis T2*');
+%Mus til ur 
 set(handles.figure1,'Pointer','watch')
 
 % Find antallet af pixels i ROI'en (i det snit)
@@ -38,10 +39,12 @@ for i = 1:numbPix
     % Præallokér til at indeholde pixelværdi pr. echotid
     Pix = zeros(1, echoTimes);
     
+    %Paralleliser for - loopen 
    parfor ii = 1:echoTimes
        Pix(ii) = ...
            handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(ii).Pixels(i);
    end
+   
    % Vend vektorerne til fit-metoden og fit (få både fit og goodness of
    % fit)
    Pix = Pix';
@@ -49,7 +52,9 @@ for i = 1:numbPix
    [f, gof] = fit(Echo, Pix, 'exp1');
    handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(i) = gof;
    
-   % Udregn T2*
+   %Forklaring til GOF 
+   
+   % Udregn T2* for hver pixel ud fra dens fit-koefficient b 
    PixelT2(i) = -1/f.b;
    
    if isvalid(wb)
@@ -60,7 +65,8 @@ end
 
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
 
-% Find minimum værdien for R^2
+% R^2 jo tættere på 1 det er, jo bedre passer det. 
+% Find minimum værdien for R^2.
 minR2 = ...
   min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare]);
 minR2 = num2str(round(minR2, 3));
@@ -70,6 +76,9 @@ highValues = ['5'; '6'; '7'; '8'; '9'];
 isHighValue = (minR2(end) == highValues(:));
 % Nedenstående if er for at der bliver rundet ned til 2 decimaler for
 % min-værdien af R^2 
+%Grunden til at vi gerne vil runde ned og ikke op, er at vi ikke vil
+%risikere at der allerede er valgt nogle plixels fra uden af brugen kan se
+%det. 
 if (~isempty(isHighValue(isHighValue)))
     
     minR2(end) = '4';
@@ -97,6 +106,8 @@ handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2 = minR2;
 % Farvelæg
 handles = colormapPixels(handles, ROIID, layerPos,...
     handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes);
+% Det sidste inputargument til colomapPixels er "indexes". Disse er
+% index-værdierne (placeringerne) for pixelene i ROI'en
 
 % Luk waitbaren (hvis den stadig er åben)
 if isvalid(wb)
