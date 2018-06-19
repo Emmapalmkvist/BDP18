@@ -22,7 +22,8 @@ function handles = sortLayers(handles)
 
 % Bruger "unique" til at finde de unikke værdier i SliceLocation
 %unique giver de unikke værdier, giver hvor de unikke værdier er placeret
-%(det skal vi ikke bruge og derfor ~ 
+%(det skal vi ikke bruge og derfor ~) og giver lagne numre ud fra antallet
+%af unikke værdier.
 [uniqueValues, ~, layer] = unique([handles.MyData.T2.SliceLocation]);
 
 % Antallet af unikke værdier er antallet af lag
