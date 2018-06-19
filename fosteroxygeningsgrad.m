@@ -352,7 +352,7 @@ function btnExcludeMinus_Callback(hObject, eventdata, handles)
 % Først findes min-værdien for RMSE
 layerPos = get(handles.SliderLayer, 'Value');
 ROIID = get(handles.lbT2Ana, 'Value');
-type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag')
+type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag');
 
 if(strcmp(type, 'rbRMSE'))
     % Hent min-værdien og afrund den til kun 1 decimal
