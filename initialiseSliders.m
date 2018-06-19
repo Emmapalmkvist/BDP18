@@ -23,5 +23,9 @@ set(handles.SliderLayer, 'Value', 1);
 set(handles.SliderLayer, 'Min', 1);
 set(handles.SliderLayer, 'Max', handles.MyData.NumbOfLayers);
 set(handles.SliderLayer, 'SliderStep', [1/(length(handles.MyData.Layers)-1), 2/(length(handles.MyData.Layers)-1)]);
+%Der trækkes 1 fra, fordi der kun skal være 4 step og ikke 5 da den stater
+%i et. 
+    %Sådan burde det også have været i sliderROIPicture, her er nemlig 16
+    %step i stedet for 15 og billede 9 vises to gange. 
 end
 

@@ -10,6 +10,7 @@ function handles = displayLayers(handles)
 %   handles med nye værdier fra funktionen displayROIPicture
 
 %Henter slider værdien og runder værdien op til nærmeste heltal.
+%ceil runder op til næste heltal, da get kan give kommatal. 
 layerPos = ceil(get(handles.SliderLayer, 'Value'));
 %Sætter teksten under slider, der fortæller hvilket snit der bliver vist ud
 %af x-antal i alt.
