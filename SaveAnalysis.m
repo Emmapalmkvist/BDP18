@@ -23,13 +23,17 @@ function SaveAnalysis(handles)
  [FileName,PathName] = uiputfile('.mat','Hvor skal analysen gemmes?',Name);
  fileName = fullfile(PathName,FileName);
  
+ % Hvis brugeren ikke har annulleret:
  if fileName ~= 0
 
     set(handles.figure1,'Pointer','watch'); % Ændrer cursor til watch 
+    % Gemmer fra det struct, der hedder "handles" og gemmer det field, der
+    % hedder "MyData": save(FILENAME, '-struct', STRUCTNAME, FIELDNAMES)
     save(fileName,'-struct','handles','MyData')
     set(handles.figure1,'Pointer','arrow'); % Ændrer cursor til arrow
     
-    % Notification til brugeren om filen er gemt
+    % Notification til brugeren om filen er gemt.
+    % Sætter den til modal, hvilket sætter boksen som forreste vindue.
     msgbox(sprintf('Billedeanalyse er gemt i %s' , fileName), 'WindowStyle', 'modal');
 end
 end

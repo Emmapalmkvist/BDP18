@@ -15,20 +15,25 @@ function handles = LoadSavedAnalysis(handles)
 if isfield(handles, 'MyData')
     layerPos = get(handles.SliderLayer, 'Value');
     if ~isempty(handles.MyData.Layers(layerPos))
+        % Prompter brugeren med en spørgsmålboks
+        % questdlg(SPØRGSMÅL, TITEL, KNAP1, KNAP2, DEFAULTKNAP) 
         choice = questdlg('Der er allerede en analyse i gang der vil blive overskrevet. Ønsker du at forsætte?', ...
             'Overskrivning af analyse', ...
             'Ja','Nej','Ja');
         
         switch choice
             case 'Ja'
-                
+                % Fortsættes der
             case 'Nej'
                 return
+                % Returneres, så nedenstående kode ikke udføres
         end
     end
 end
 
+% Vælg en matfil
 [fileName, pathName] = uigetfile('*.mat');
+% Trykkes der ikke annuller:
 if fileName ~= 0
     handles = clearGUI(handles);
     % Opretter en waitbar og sætter den til modal, hvilket sætter
@@ -38,7 +43,10 @@ if fileName ~= 0
     
     % Data indlæses og gemmes i handles
     savedData = load(fullfile(pathName,fileName));
+    % Lægger MyData fra den hentede fil over i handles.MyData
     handles.MyData = savedData.MyData;
+    % isvalid tjekker, om wb er valid: ikke er slettet eller er
+    % uinitialiseret
     if isvalid(wb)
         waitbar(1/3, wb, sprintf('Indlæser analysens billeder...'))
     end
@@ -49,12 +57,16 @@ if fileName ~= 0
     handles = initialiseSliders(handles);
     displayLayers(handles);
     
+     % isvalid tjekker, om wb er valid: ikke er slettet eller er
+    % uinitialiseret
     if isvalid(wb)
         waitbar(2/3, wb, sprintf('Indlæser analysens billeder...'))
     end
     
     % Tjekker om der er ROIs, der skal indlæses
     if isfield(handles.MyData.Layers, 'ROIS')
+        % Har vi egentlig lige sat til 1, men hvis nu ombestemmer os en
+        % anden gang - så skal vi ikke ændre flere steder
         layerPos = get(handles.SliderLayer, 'Value');
         % Placerer gemte ROIs i brugergrænsefladen
         displayROISonPicture(handles);
@@ -63,6 +75,7 @@ if fileName ~= 0
             close(wb)
         end
         
+        %Finder ud af, hvor mange ROIs der er
         numbROIs = length(handles.MyData.Layers(layerPos).ROIS(:));
         
         if numbROIs ~= 0
@@ -79,7 +92,10 @@ if fileName ~= 0
             set(findall(handles.GroupT2Ana, '-property', 'enable'), 'enable', 'on');
             for i = 1:numbROIs
                 oldList = get(handles.lbT2Ana, 'String');
+                % strvcat: kobler gammel liste og ny ROI sammen, ved at
+                % lave en 'character matrix' med teksten som rækker
                 newList = strvcat(char(oldList), char(handles.MyData.Layers(layerPos).ROIS(i).ROI(1).ROIID));
+                % Sætter listen i listboksen
                 set(handles.lbT2Ana, 'String', newList);
                 if isvalid(wb)
                     waitbar(i/approxDuration, wb, sprintf('Indlæser valgte analyse...'))
