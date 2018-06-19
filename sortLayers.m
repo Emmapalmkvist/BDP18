@@ -31,23 +31,42 @@ layer = num2cell(layer);
 % Indholdet i layer placeres i det tilhørende field i structet
 [handles.MyData.T2.LayerNo] = deal(layer{:});
 
-% Alle lagene løbes igennem
+% Alle lagene/snittede løbes igennem - således at billederne i ét snit
+% sorteres
 for i = 1:length(uniqueValues)
     % Sorter billederne i et snit efter stigende ekkotid ved at lave
     % structet om til et cell array og sorter på den ønskede kolonne
+        
+    % i structet findes de rækker, som tilhører det i'ne snit
     dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
+    % fieldnames gemmes - egentlig bare for at vide, hvilken kolonne vi vil
+    % sortere efter
     fNames = fieldnames(dataStruct);
+    % Konverter fra struct til cellarray
     dataCell = struct2cell(dataStruct);
+    % Find størrelsen: [4 1 16] = 4 rækker, 1 kolonne, data i 3. dimension
+    % (16 billeder = 16 felter)
     cellSize = size(dataCell);
+    % Reshape for at forme arrayet om til matrix form
+    % elementerne fra dataCell tages og laves til en matrix
     dataCell = reshape(dataCell, cellSize(1), []);
+    % Transponerer = vender matricen, så det ligner structet
     dataCell = dataCell';
     % Sortér efter kolonne 3, som er ekkotiden
     dataCell = sortrows(dataCell, 3);
+    % Reshape tilbage til cell-form
     dataCell = reshape(dataCell', cellSize);
-    
-    % Alle billederne tilhørende nuværende snit gemmes
+     % Alle billederne tilhørende nuværende snit gemmes
+     % konvertér tilbage til struct
     handles.MyData.Layers(i).Images = cell2struct(dataCell, fNames, 1);
+   
+    % NB: Efter aflevering: structet kunne laves direkte til en tabel
+    % (struct2table)og så sortere efter en kolonne, og så tilbage til
+    % struct (table2struct)
+    % Det vi har gjort er hvis vi havde arbejdet med MATLAB før R2013b.
+    % https://se.mathworks.com/matlabcentral/answers/397385-how-to-sort-a-structure-array-based-on-a-specific-field
     
+       
     numbOfPics = length(handles.MyData.T2([handles.MyData.T2.LayerNo]==i));
     
     % Alle billederne i et lag løbes igennem
