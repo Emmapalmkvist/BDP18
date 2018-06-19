@@ -25,7 +25,7 @@ for i = 1:length(indexes)
      handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(loc);
 end
 
-% Lav en maske for pixelene
+% Lav en maske for pixelene (0=falsk, 1 = sand)
 mask = logical(im);
 
 % Find det nuværende billede, så dette kan bruges til farvelægning
@@ -41,6 +41,8 @@ cla(handles.axDrawROI)
 axes(handles.axDrawROI)
 
 % Læg det nuværende billede i "aksen" og gem handle dertil i variabel
+% Subimage bruges i steder for imshow, da vi skal lægge billeder ovenpå
+% hinanden
 h = subimage(currentIm);
 % Sæt aksen til at vise det, som ligger inden i mask, ved at anvende at
 % AlphaData kan sættes for et handle til et billede
@@ -55,7 +57,8 @@ hold on;
 h = subimage(currentIm);
 % Sæt akseskaleringen til at være den samme som før
 caxis(axScale)
-% Gem handle til billedet i handles
+% Gem handle til billedet i handles. For at den ved hvilket billede
+% eventuelle nye ROIS skal tegnes på. 
 handles.MyData.HandleToCurrentROIImage = h;
 
 % Sæt aksen til at vise det, som ligger uden for masken

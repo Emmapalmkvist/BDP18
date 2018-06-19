@@ -25,9 +25,12 @@ for i = 1:echoPos
 
     % Find den del i image, som ROI'en indkranser
     im(mask == 0) = 0;
+    %Alle de steder i masken der er 0, skal også være 0 i billedet
    
     % Find indexes for punkterne i ROI'en
+    % Finder placering af alle 1'erne i masken 
     idx = find(mask);
+    % Finder intensiteterne i billedet der hvor ROI'en er
     % Få pixel intensiteterne for denne echotid
     intensity = im(idx);
     % Tag middelværdi af værdierne i ROI'en
