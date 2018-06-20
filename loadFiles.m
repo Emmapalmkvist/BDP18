@@ -41,11 +41,11 @@ if dirName ~= 0 %hvis man ikke har trykket annuller eller lukket dialogboksen
         % giver alt information omkring filen
         iminfo = dicominfo(currentFile);
         % Tjekker om "SeriesDescription" tagget er 'T2'
-        if strfind(iminfo.SeriesDescription, 'T2')
+        if strfind(iminfo.SeriesDescription, 'T2') %stringfind
             handles.MyData.T2(CntT2).Image = dicomread(currentFile);
             handles.MyData.T2(CntT2).SliceLocation = iminfo.SliceLocation;
             handles.MyData.T2(CntT2).EchoTime = iminfo.EchoTime;
-            CntT2 = CntT2 + 1;
+            CntT2 = CntT2 + 1; 
         else
             handles.MyData.Loc(CntLoc).Image = dicomread(currentFile);
             handles.MyData.Loc(CntLoc).SliceLocation = iminfo.SliceLocation;
