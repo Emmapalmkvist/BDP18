@@ -34,6 +34,7 @@ if(strcmp(type, 'rbRMSE'))
 elseif(strcmp(type, 'rbR2'))
     % Find placering af de værdier, som er mindre end eller lig den
     % specificerede værdi
+    % Normalt ved perfekte lineære linjer er R2 = 1
     % FINDER PIXELS SOM SKAL FJERNES
     valueLoc = ...
      [handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare]...
@@ -43,13 +44,14 @@ end
 % Find værdiernes tilhørende index i billedet
 % idx: placering af pixels i ROI'en
 idx = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes;
-% Fjern de indexes, som tilhører pixels, der skal eksluderes
+% Fjern de indexes, som tilhører pixels, der skal eksluderes [] gør at
+% pladsen bliver tom
 idx(valueLoc) = [];
 
 % Kør colormapning - nu med et reduceret antal af pixels (ud fra idx)
 handles = colormapPixels(handles, ROIID, layerPos, idx);
 
-% Lav en maske
+% Lav en maske til getMeanROI
 % Finder størrelse på billederne
 sz = size(handles.MyData.Layers(layerPos).Images(1).Image);
 % størrelsen bruges til at klargøre en maske på samme størrelse som

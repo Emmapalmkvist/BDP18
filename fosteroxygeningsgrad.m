@@ -57,6 +57,7 @@ handles.output = hObject;
 axes(handles.axLogo)
 imshow('LogoAarhusUni.jpg');
 
+%Enable stået til at det ikke er muligt at trykke på de noget
 set(findall(handles.GroupT2Ana, '-property', 'enable'), 'enable', 'off');
 set(findall(handles.GroupChoices, '-property', 'enable'), 'enable', 'off');
 
@@ -145,6 +146,7 @@ guidata(hObject, handles);
 layerPos = get(handles.SliderLayer, 'Value');
 ROIidx = get(handles.lbT2Ana, 'Value');
 
+% Hvis brugeren skifter ROI's i listboxen, indhentes oplysninger
 % Plot den tilhørende analyse (tjekker først, at der er en)
 if isfield(handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI, 'MeanValue')
     x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
@@ -275,7 +277,7 @@ function tbFitPixels_ClickedCallback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Tjek om der er tegnet ROIs
+% Tjek om der er tegnet ROIs som der kan laves pixels analyse på
 if isfield(handles, 'MyData')
     if isfield(handles.MyData.Layers, 'ROIS')
         ROIID = get(handles.lbT2Ana, 'Value');
@@ -320,11 +322,11 @@ ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag');
 
 if(strcmp(type, 'rbRMSE'))
-    % Hent max-værdien og afrund den til kun 1 decimal
+    % Hent max-værdien 
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxRMSE;
     plusValue = 0.1;
 elseif(strcmp(type, 'rbR2'))
-    % Hent max-værdien og afrund den til 2 decimaler
+    % Hent max-værdien 
     max = handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MaxR2;
     plusValue = 0.01;
 end
@@ -355,11 +357,11 @@ ROIID = get(handles.lbT2Ana, 'Value');
 type = get(get(handles.btnGrpExclude, 'SelectedObject'), 'Tag');
 
 if(strcmp(type, 'rbRMSE'))
-    % Hent min-værdien og afrund den til kun 1 decimal
+    % Hent min-værdien
     min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinRMSE,1);
-    minusValue = 0.1;
+    minusValue = 0.1; %RMSE er højrer og derfor lægges der også mere til afgangen
 elseif(strcmp(type, 'rbR2'))
-    % Hent min-værdien og afrund den til 2 decimaler
+    % Hent min-værdien
     min = round(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).MinR2,2);
     minusValue = 0.01;
 end

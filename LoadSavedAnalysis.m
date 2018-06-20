@@ -52,8 +52,8 @@ if fileName ~= 0
     end
     
     % Gør brugergrænsefladen klar
-    set(handles.SliderLayer, 'Value', 1);
-    set(handles.SliderROIPicture, 'Value', 1);
+    set(handles.SliderLayer, 'Value', 1); %i relevant da et er i metoden initialiseSlicer
+    set(handles.SliderROIPicture, 'Value', 1); %i relevant da et er i metoden initialiseSlicer
     handles = initialiseSliders(handles);
     displayLayers(handles);
     
