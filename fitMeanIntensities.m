@@ -28,13 +28,13 @@ layerPos = get(handles.SliderLayer, 'Value');
 % Lav x-vektor, ud fra ekkotider
 x = [handles.MyData.Layers(layerPos).Images.EchoTime]';
 
-%Lav y-vektor, du fra middelværdier
-% Hvis der er to input vil det være handles og ROIidx. MeanValue for hele
-% ROI er gemt i handles
+% Lav y-vektor, ud fra middelværdier
+% Hvis der er to funktionsinput vil det være handles og ROIidx(nummeret på ROI)
+% MeanValue for hele ROI er gemt i handles
 if nargin == 2 
-    y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]';
+    y = [handles.MyData.Layers(layerPos).ROIS(ROIidx).ROI.MeanValue]'; 
 %Det trejde input er meanValues fra excludePixels dvs. middelværdien af de
-%tilbageværende pixels. 
+%tilbageværende pixels. (Når der trykkes på genanalyser) 
 %Den vil være der når man har været inde og fravælge pixels. 
 elseif nargin == 3
     y = meanValues';

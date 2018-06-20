@@ -25,6 +25,8 @@ wb = waitbar(0, 'Beregner pixelvis T2*');
 set(handles.figure1,'Pointer','watch')
 
 % Find antallet af pixels i ROI'en (i det snit)
+% Vi tager den bare fra den første eccotid (eccopix), fordi der ligger lige
+% mange pixels i hver eccotid
 layerPos = get(handles.SliderLayer, 'Value');
 numbPix = ...
     length(handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Pixels);
@@ -33,13 +35,16 @@ numbPix = ...
 echoTimes = get(handles.SliderROIPicture, 'Max');
 
 % Præallokér til at indeholde T2-værdierne for hver enkel pixel
+%man kunne også have brugt NaN, da vi så kunne se hvor den var gået galt
 PixelT2 = zeros(1, numbPix);
 
+
+%for-loop for hver enkelt pixel
 for i = 1:numbPix
     % Præallokér til at indeholde pixelværdi pr. echotid
     Pix = zeros(1, echoTimes);
     
-    %Paralleliser for - loopen 
+    %Paralleliser for - loopen - eccotider i hver pixel
    parfor ii = 1:echoTimes
        Pix(ii) = ...
            handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(ii).Pixels(i);
@@ -52,8 +57,6 @@ for i = 1:numbPix
    [f, gof] = fit(Echo, Pix, 'exp1');
    handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(i) = gof;
    
-   %Forklaring til GOF 
-   
    % Udregn T2* for hver pixel ud fra dens fit-koefficient b 
    PixelT2(i) = -1/f.b;
    
@@ -65,14 +68,15 @@ end
 
 handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2 = PixelT2(:);
 
-% R^2 jo tættere på 1 det er, jo bedre passer det. 
 % Find minimum værdien for R^2.
 minR2 = ...
   min([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).GOF(:).rsquare]);
+% det der bliver udskrevet, 3 for 3 decimaler
 minR2 = num2str(round(minR2, 3));
 % Lav vektor af værdier, som vil medføre, at der rundes op
 highValues = ['5'; '6'; '7'; '8'; '9'];
 % Se, om den sidste værdi er lig et af ovenstående tal
+% hvis den er sand returernes 1 og falsk returneres 0.
 isHighValue = (minR2(end) == highValues(:));
 % Nedenstående if er for at der bliver rundet ned til 2 decimaler for
 % min-værdien af R^2 

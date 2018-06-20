@@ -22,30 +22,30 @@ function handles = sortLayers(handles)
 
 % Bruger "unique" til at finde de unikke værdier i SliceLocation
 %unique giver de unikke værdier, giver hvor de unikke værdier er placeret
-%(det skal vi ikke bruge og derfor ~) og giver lagne numre ud fra antallet
+%(det skal vi ikke bruge og derfor ~) og giver snitene numre ud fra antallet
 %af unikke værdier.
 [uniqueValues, ~, layer] = unique([handles.MyData.T2.SliceLocation]);
 
-% Antallet af unikke værdier er antallet af lag
+% Antallet af unikke værdier er antallet af snit
 handles.MyData.NumbOfLayers = length(uniqueValues);
-% Layer er en vektor med lag-numre. Denne gøres til en cell som kan
+% Layer er en vektor med snit-numre. Denne gøres til en cell som kan
 % placeres i et struct
 layer = num2cell(layer);
-% Indholdet i layer placeres i det tilhørende field i structet
+% opretter en kolonne i structet, hvor layer kommer til at ligge på layerno
 [handles.MyData.T2.LayerNo] = deal(layer{:});
 
-% Alle lagene/snittede løbes igennem - således at billederne i ét snit
+% Alle snitene løbes igennem - således at billederne i ét snit
 % sorteres
 for i = 1:length(uniqueValues)
-    % Sorter billederne i et snit efter stigende ekkotid ved at lave
-    % structet om til et cell array og sorter på den ønskede kolonne
+    % Sorterer billederne i et snit efter stigende ekkotid ved at lave
+    % structet om til et cell array og sorterer på den ønskede kolonne
         
     % i structet findes de rækker, som tilhører det i'ne snit
     dataStruct = handles.MyData.T2([handles.MyData.T2.LayerNo]==i);
-    % fieldnames gemmes - egentlig bare for at vide, hvilken kolonne vi vil
-    % sortere efter
+    % fieldnames gemmes -  egentlig bare for at vi har dem, men vi ved at
+    % det er 3. kolonne vi vil sortere på, for det er echotiden. 
     fNames = fieldnames(dataStruct);
-    % Konverter fra struct til cellarray
+    % Konverter fra struct til cellarray, så der kan sorteres
     dataCell = struct2cell(dataStruct);
     % Find størrelsen: [4 1 16] = 4 rækker, 1 kolonne, data i 3. dimension
     % (16 billeder = 16 felter)
@@ -79,6 +79,7 @@ for i = 1:length(uniqueValues)
         im = double(handles.MyData.Layers(i).Images(ii).Image);
         im = im/max(im(:));
         %handles.MyData.Stacks(i).Stack(:,:,1,ii) = im;
+        %billedet laves på 'stack-form', så vi kan lave en montage
         handles.MyData.Layers(i).Stack(:,:,1,ii) = im;
     end
     

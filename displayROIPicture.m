@@ -12,10 +12,12 @@ function handles = displayROIPicture(handles)
     
  cla(handles.axDrawROI)
 %ceil runder op til næste heltal, da get kan give kommatal.
+%ny: hvis vi sætter -1 over i vores initialise slider behøver vi ikke den
+%her ceil. 
  layerPos = ceil(get(handles.SliderLayer, 'Value'));
  %Udkommenteret efter aflevering: echoPos = round(get(handles.SliderROIPicture, 'Value'));
- % round er ændret til ceil
- echoPos = ceil(get(handles.SliderROIPicture, 'Value'));
+ % round er fjernet, da det ikke giver kommatal
+ echoPos = get(handles.SliderROIPicture, 'Value'); %ny
  set(handles.txtSliderROIPicture, 'String', sprintf('%d/%d', echoPos,...
      length(handles.MyData.Layers(layerPos).Images))); 
  axes(handles.axDrawROI)
@@ -26,8 +28,8 @@ function handles = displayROIPicture(handles)
  %Gemmer handle til billedet, så det kan bruges senere. 
  handles.MyData.HandleToCurrentROIImage = imshow(currentIm);
  
+ %Kode for at den tegner ROI med over på et andet billede
   if isfield(handles.MyData.Layers,'ROIS')
         displayROISonPicture(handles);
   end  
 end
-
