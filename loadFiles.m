@@ -11,7 +11,7 @@ function handles = loadFiles(handles)
 %   - SliceLocation: snitlokation for det nuværende billede
 %   - EchoTime: ekkotiden for nuværende billedet
     
-    
+  
 
    
 % Beder brugeren om at vælge mappe. Når mappen er valgt gemmes billederne
