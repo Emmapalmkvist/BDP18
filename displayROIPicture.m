@@ -33,4 +33,3 @@ function handles = displayROIPicture(handles)
         displayROISonPicture(handles);
   end  
 end
-
