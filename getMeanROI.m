@@ -21,14 +21,15 @@ y = zeros(1, echoPos);
 echoPix = struct([]);
 
 for i = 1:echoPos
+    %double fordi vi havde tænkt, at vi ville normalisere
     im = double(handles.MyData.Layers(layerPos).Images(i).Image);
 
     % Find den del i image, som ROI'en indkranser
     im(mask == 0) = 0;
     %Alle de steder i masken der er 0, skal også være 0 i billedet
    
-    % Find indexes for punkterne i ROI'en
-    % Finder placering af alle 1'erne i masken 
+    % Find indexes (placeringerne) for punkterne i ROI'en
+    % Får indexes for alle 1'erne i vores maske
     idx = find(mask);
     % Finder intensiteterne i billedet der hvor ROI'en er
     % Få pixel intensiteterne for denne echotid
@@ -36,12 +37,16 @@ for i = 1:echoPos
     % Tag middelværdi af værdierne i ROI'en
     y(i) = mean(im(idx));
     
+    %NB: Når man sætter det område der i masken er 0 til 0 i billedet,
+    %kunne man også finde intensiteterne ud fra de resterende værdier i
+    %billedet, dvs. dem der er forskellig fra 0. Gøres ved: im(im~=0)
+    
     % Intensiteterne gemmes
     echoPix(i).Pixels = intensity;
 
 end
      
-    % Gem indexes
+    % Gem indexes. Bruges til at beregne T2-værdiers
     echoPix(1).Indexes = idx;
 end
 

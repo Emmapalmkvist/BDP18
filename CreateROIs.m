@@ -29,7 +29,8 @@ end
 ROI = impoly;
 
 % Hvis ROI'en er blevet tegnet (ESC er ikke trykket), så skal nedenstående
-% udføres
+% udføres. Så hvis bruger trykker ESC ved indtegning af ROI skal den ikke
+% køre kode
 if ~isempty(ROI)
      
     %Bruger navngiver indtegnet ROI. 1 for en linje tekst
@@ -42,9 +43,12 @@ if ~isempty(ROI)
         
         %Henter værdi af slider til "Billeder i snit"
         layerPos = get(handles.SliderLayer, 'Value');
+        %i handletocurrentROIImage ligger det nuværende ROI image
         h_Im = handles.MyData.HandleToCurrentROIImage;
         
-        % Lav maske ud fra ROI
+        % Lav maske ud fra ROI, vi giver h_Im med, så den ved hvad for et
+        % billede den skal beregne masken på, da vi ligger to billeder ovenpå
+        % hinanden når der skal farvelægges
         mask = createMask(ROI, h_Im);
         
         % y er middelværdien
@@ -54,6 +58,7 @@ if ~isempty(ROI)
         if isfield(handles.MyData.Layers, 'ROIS')
             
             %Tjekker om der ligger noget i ROI i det nuværende valgte lag. 
+            %Denne if/else er måske ikke så nødvendig
             if ~isempty(handles.MyData.Layers(layerPos).ROIS)
                 %Bruger længden som index. 
                 idx = length(handles.MyData.Layers(layerPos).ROIS(:));
@@ -70,13 +75,15 @@ if ~isempty(ROI)
             handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).EchoPix = echoPix;
             
             set(handles.lbT2Ana, 'Enable', 'on');
-            % Sørger for, at den senest tegnede ROI er markeret i listboksen
+            % Sørger for, at den senest tegnede ROI er markeret i
+            % listboksen. ikke nødvendig her, kommer senere
             set(handles.lbT2Ana, 'Value', idx+1);
             %For at få flere ROInavne i listboksen, gemmes nuværende tekst
             %i en string. 
             oldList = get(handles.lbT2Ana, 'String');
             %Det nye navn laves ved at sættes det gamle navn sammen med det
             %ny ROIID
+            %strvcat laver en matrix af tekst i rækker
             newList = strvcat(char(oldList), char(handles.MyData.Layers(layerPos).ROIS(idx+1).ROI(1).ROIID));
             %Sætter listboksen med den nye tekst
             set(handles.lbT2Ana, 'String', newList);
@@ -100,16 +107,23 @@ if ~isempty(ROI)
             handles.MyData.Layers(layerPos).ROIS.ROI(1).MeanValue = y;
             handles.MyData.Layers(layerPos).ROIS.ROI(1).EchoPix = echoPix;
             
+            % middel af x og y koordinater, så vi får en label for vores
+            % ROI, der ligger der hvor vi har tegnet ROI'en
+            %Clipping får den til ikke at gå ud over akserne
             text(mean(pos(:,1)), mean(pos(:,2)), id, 'Color', 'y', 'Clipping', 'on')
             
-            %Groupbox vises på brugergrænsefladen
+            %Groupbox vises på brugergrænsefladen (OBS, de er allerede
+            %visible)
             set(handles.GroupT2Ana, 'Visible', 'on');
             set(handles.GroupChoices, 'Visible', 'on');
-            %Første ROIID indsættes i listbox. 
+            %Første ROIID indsættes i listbox. tuborg-paranterser, fordi vi
+            %putter et cellarray i en listbox
             set(handles.lbT2Ana, 'String', {convertCharsToStrings(handles.MyData.Layers(layerPos).ROIS.ROI(1).ROIID)});
+            %1 står stadig for 1
             handles = fitMeanIntensities(handles, 1);
         end
     else
+        %sletter hvis man har afbrudt navngivning
         delete(ROI);
     end
 end

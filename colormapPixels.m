@@ -13,11 +13,14 @@ function handles = colormapPixels(handles, ROIID, layerPos, indexes)
 %       - HandleToCurrentROIImage: et handle til det nuværende billede,
 %       således at det kan bruges, når der skal tegnes flere ROIs
 
-% Lav et billede til T2-værdierne
+% Lav et billede til T2-værdierne, der laves size for at have dimensionerne
+% på et billede (256*256)
 sz = size(handles.MyData.Layers(layerPos).Images(1).Image);
 im = zeros(sz);
 
-% Indlæs T2-værdi på hver pixel-plads
+% Indlæs T2-værdi på hver pixel-plads.
+% Denne for-loop finder placeringen for pixelen i billedet og ligger T2 for
+% denne pixel på pladsen
 for i = 1:length(indexes)
  loc = find([handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).Indexes]...
      == indexes(i));
@@ -25,7 +28,8 @@ for i = 1:length(indexes)
      handles.MyData.Layers(layerPos).ROIS(ROIID).ROI.EchoPix(1).T2(loc);
 end
 
-% Lav en maske for pixelene (0=falsk, 1 = sand)
+% Lav en maske for pixelene (0=falsk, 1 = sand) %Alle T2-værdier bliver
+% lavet til 1. 
 mask = logical(im);
 
 % Find det nuværende billede, så dette kan bruges til farvelægning
@@ -68,6 +72,7 @@ set(h, 'AlphaData', ~mask);
 set(handles.axDrawROI, 'XTick', []);
 set(handles.axDrawROI, 'YTick', [])
 
+%der er lagt et nyt billede op, så vi har fået en ny roi op. 
 displayROISonPicture(handles);
 
 end
