@@ -1,0 +1,5 @@
+*** Resultater for T2værdier_.txt ***
+Patientens CPR-nummer: 0909872472 
+T2* værdierne tilhører snit 1. 
+På dette snit 1 er der indtegnet 1 ROI. 
+T2* værdien for ROI Placenta er 43.69 
